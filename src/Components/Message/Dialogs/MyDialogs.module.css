@@ -1,0 +1,21 @@
+.dialogs {
+    background-color: #dce1e6;
+    border-radius: 5px;
+    padding: 10px;
+}
+
+.dialogsItem {
+    display: flex;
+    margin: 10px 0;
+}
+
+.dialogsName {
+    align-self: center;
+    margin-left: 10px;
+}
+
+.dialogsImg {
+    width: 50px;
+    height: 50px;
+    border-radius: 30px;
+}

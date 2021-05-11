@@ -1,3 +1,7 @@
+ul, h3 {
+    margin: 0
+}
+
 .appWrapper {
     background-color: #dce1e6;
 }
@@ -14,6 +18,15 @@
     grid-template-rows: 50px 1fr;
     grid-gap: 10px;
 }
+
+.appMenuContent {
+    grid-area: m;
+    background-color: white;
+    padding: 10px;
+    border-radius: 5px 5px 0 0;
+}
+
+
 
 
 

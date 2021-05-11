@@ -1,8 +1,8 @@
 import React from 'react';
-import s from './Content.module.css';
+import s from './Profile.module.css';
 import {MyPost} from "./MyPost/MyPost";
 
-export function Content() {
+export function Profile() {
     return (
         <div className={s.content}>
             <div className={s.contentPhoto} >
