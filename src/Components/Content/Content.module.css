@@ -1,0 +1,31 @@
+.content {
+    grid-area: m;
+    background-color: white;
+    padding: 10px;
+    border-radius: 5px 5px 0 0;
+    display: grid;
+    grid-template-columns: 210px 10fr;
+    grid-template-rows: 200px 1fr;
+    grid-template-areas:
+    "photo info"
+    "photo myPost";
+}
+
+.contentPhoto {
+    grid-area: photo;
+}
+
+.contentInfo {
+    grid-area: info;
+}
+
+.contentImg {
+    width: 200px;
+    height: 200px;
+}
+
+.content h3 {
+    margin: 0;
+}
+
+
