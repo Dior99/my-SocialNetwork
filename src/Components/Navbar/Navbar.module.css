@@ -11,7 +11,17 @@
     line-height: 30px;
 }
 
-.menu li a {
+.menu a {
     text-decoration: none;
-    color: black;
+    color: #041226;
+    display: block;
+    border-radius: 5px;
+    padding: 8px;
+}
+
+a.active {
+    color: gold;
+}
+a:hover {
+  background-color: #98a0ac;
 }

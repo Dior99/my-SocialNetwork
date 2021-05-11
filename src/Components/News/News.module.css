@@ -1,0 +1,17 @@
+.nav {
+    grid-area: n;
+}
+
+.menu {
+    padding: 5px;
+}
+
+.menu li {
+    list-style: none;
+    line-height: 30px;
+}
+
+.menu li a {
+    text-decoration: none;
+    color: black;
+}
