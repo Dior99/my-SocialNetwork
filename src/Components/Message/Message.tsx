@@ -1,12 +1,15 @@
 import React from 'react';
 import s from './Message.module.css';
 import {MyDialogs} from "./Dialogs/MyDialogs";
+import {MessageItems} from "./MessageItems/MessageItems";
 
 export function Message() {
     return (
-        <div className={s.message}>
-            <h3>Message</h3>
-            <MyDialogs/>
+        <div>
+            <div className={s.message}>
+                <MessageItems/>
+                <MyDialogs/>
+            </div>
         </div>
     )
 }

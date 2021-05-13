@@ -1,4 +1,5 @@
 .message {
     display: grid;
     grid-template-columns: 10fr 250px;
+    grid-template-areas: "m d";
 }

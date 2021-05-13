@@ -2,11 +2,19 @@
     background-color: #dce1e6;
     border-radius: 5px;
     padding: 10px;
+    grid-area: d;
 }
 
 .dialogsItem {
     display: flex;
     margin: 10px 0;
+    text-decoration: none;
+    color: black;
+    border-radius: 5px;
+}
+
+.dialogsItem.active {
+    color: gold;
 }
 
 .dialogsName {
