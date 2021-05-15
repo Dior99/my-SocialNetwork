@@ -1,8 +1,13 @@
 import React from 'react';
 import s from './Profile.module.css';
 import {MyPost} from "./MyPost/MyPost";
+import {ProfilePageType} from "../../Redux/State";
 
-export function Profile() {
+type ProfilePropsType = {
+    stateProfile: ProfilePageType
+}
+
+export function Profile(props: ProfilePropsType) {
     return (
         <div className={s.content}>
             <div className={s.contentPhoto} >
@@ -15,7 +20,7 @@ export function Profile() {
                 <div>Current city:</div>
                 <div>Relationship:</div>
             </div>
-            <MyPost/>
+            <MyPost post={props.stateProfile.post}/>
         </div>
     )
 }

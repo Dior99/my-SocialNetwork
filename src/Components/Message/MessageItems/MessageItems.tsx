@@ -1,24 +1,15 @@
 import React from 'react';
 import s from './MessageItems.module.css';
+import {MessageType} from "../../../Redux/State";
 
-const AvatarMessage = "https://photopict.ru/wp-content/uploads/2019/05/kartinki-dlya-stima-4.jpg"
 
-type MessageStateType = {
-    id: number
-    title: string
-    name: string
-    avatar: typeof AvatarMessage
+type MessageItemsPropsType = {
+    messageState: Array<MessageType>
 }
 
-export function MessageItems() {
+export function MessageItems(props: MessageItemsPropsType) {
 
-    const messageState: MessageStateType[] = [
-        {id: 1, title: "Hello", name: "Kristina", avatar: AvatarMessage},
-        {id: 2, title: "How are your?", name: "Kristina", avatar: AvatarMessage},
-        {id: 3, title: "Hello, I am fine", name: "Kolya", avatar: AvatarMessage},
-    ]
-
-    const messageItems = messageState.map(m => {
+    const messageItems = props.messageState.map(m => {
         return (
             <div key={m.id} className={s.messageItems}>
                 <img className={s.messageAvatar} src={m.avatar}/>

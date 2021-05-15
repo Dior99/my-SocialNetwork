@@ -1,25 +1,15 @@
 import React from 'react';
 import {NavLink} from 'react-router-dom';
 import s from './MyDialogs.module.css';
+import {DialogType} from "../../../Redux/State";
 
-const DialogAvatar = "https://photopict.ru/wp-content/uploads/2019/05/kartinki-dlya-stima-4.jpg"
-
-type DialogStateType = {
-    id: number
-    name: string
-    avatar: typeof DialogAvatar
+type MyDialogsPropsType = {
+    dialogsState: Array<DialogType>
 }
 
-export function MyDialogs() {
-    const dialogsState: DialogStateType[] = [
-        {id: 1, name: 'Kolya', avatar: DialogAvatar},
-        {id: 2, name: 'Kristina', avatar: DialogAvatar},
-        {id: 3, name: 'Misha', avatar: DialogAvatar},
-        {id: 4, name: 'Alisa', avatar: DialogAvatar},
-        {id: 5, name: 'Eva', avatar: DialogAvatar},
-    ]
+export function MyDialogs(props: MyDialogsPropsType) {
 
-    const dialogsItems = dialogsState.map(i => {
+    const dialogsItems = props.dialogsState.map(i => {
         return (
             <NavLink to={'/message/' + i.name}
                      key={i.id}
