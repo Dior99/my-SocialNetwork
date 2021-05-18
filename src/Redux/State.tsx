@@ -1,3 +1,5 @@
+import {rerenderUI} from "../Render";
+
 const AvatarPost = "https://photopict.ru/wp-content/uploads/2019/05/kartinki-dlya-stima-4.jpg"
 const AvatarFriends = "https://photopict.ru/wp-content/uploads/2019/05/kartinki-dlya-stima-4.jpg"
 
@@ -52,4 +54,26 @@ export const state: StateType = {
             {id: 5, name: 'Eva', avatar: AvatarFriends},
         ],
     }
+}
+
+export function addPost (title: string) {
+    let newPost: PostType = {
+        id: 4,
+        title: title,
+        likes: 0,
+        avatar: AvatarPost
+    }
+   state.profilePage.post.push(newPost)
+    rerenderUI(state);
+}
+
+export function addMessage (title: string) {
+    let newMessage: MessageType = {
+        id: 4,
+        title: title,
+        name: "Kolya",
+        avatar: AvatarFriends
+    }
+    state.messagePage.message.push(newMessage)
+    rerenderUI(state)
 }
