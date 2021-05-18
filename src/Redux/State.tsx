@@ -22,10 +22,12 @@ export type DialogType = {
 }
 export type ProfilePageType = {
     post: Array<PostType>
+    newPostText: string
 }
 export type MessagePageType = {
     message: Array<MessageType>
     dialogs: Array<DialogType>
+    newMessageText: string
 }
 export type StateType = {
     profilePage: ProfilePageType
@@ -39,6 +41,7 @@ export const state: StateType = {
             {id: 2, title: 'Post 2', likes: 15, avatar: AvatarPost},
             {id: 3, title: 'Post 3', likes: 25, avatar: AvatarPost},
         ],
+        newPostText: "Hello",
     },
     messagePage: {
         message: [
@@ -46,6 +49,7 @@ export const state: StateType = {
             {id: 2, title: "How are your?", name: "Kristina", avatar: AvatarFriends},
             {id: 3, title: "Hello, I am fine", name: "Kolya", avatar: AvatarFriends},
         ],
+        newMessageText: "Hello",
         dialogs: [
             {id: 1, name: 'Kolya', avatar: AvatarFriends},
             {id: 2, name: 'Kristina', avatar: AvatarFriends},
@@ -56,24 +60,36 @@ export const state: StateType = {
     }
 }
 
-export function addPost (title: string) {
+export function addPost () {
     let newPost: PostType = {
         id: 4,
-        title: title,
+        title: state.profilePage.newPostText,
         likes: 0,
         avatar: AvatarPost
     }
    state.profilePage.post.push(newPost)
+    state.profilePage.newPostText = ''
     rerenderUI(state);
 }
 
-export function addMessage (title: string) {
+export function updatePostText (newText: string) {
+    state.profilePage.newPostText = newText;
+    rerenderUI(state);
+}
+
+export function addMessage () {
     let newMessage: MessageType = {
         id: 4,
-        title: title,
+        title: state.messagePage.newMessageText,
         name: "Kolya",
         avatar: AvatarFriends
     }
     state.messagePage.message.push(newMessage)
+    state.messagePage.newMessageText = ''
+    rerenderUI(state)
+}
+
+export function updateMessageText (newText: string) {
+    state.messagePage.newMessageText = newText;
     rerenderUI(state)
 }

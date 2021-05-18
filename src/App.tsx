@@ -12,8 +12,10 @@ import {StateType} from "./Redux/State";
 
 type AppPropsType = {
     state: StateType
-    addPost: (title: string) => void
-    addMessage: (title: string) => void
+    addPost: () => void
+    addMessage: () => void
+    updatePostText: (newText: string) => void
+    updateMessageText: (newText: string) => void
 }
 
 function App(props: AppPropsType) {
@@ -25,8 +27,10 @@ function App(props: AppPropsType) {
                     <Navbar/>
                     <div className="appMenuContent">
                         <Route path='/profile' render={() => <Profile stateProfile={props.state.profilePage}
+                                                                      updatePostText={props.updatePostText}
                                                                       addPost={props.addPost}/>}/>
                         <Route path='/message' render={() => <Message stateMessage={props.state.messagePage}
+                                                                      updateMessageText={props.updateMessageText}
                                                                       addMessage={props.addMessage}/>}/>
                         <Route path='/news' render={() => <News/>}/>
                         <Route path='/music' render={() => <Music/>}/>
