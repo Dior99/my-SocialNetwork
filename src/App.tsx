@@ -16,6 +16,8 @@ type AppPropsType = {
     addMessage: () => void
     updatePostText: (newText: string) => void
     updateMessageText: (newText: string) => void
+    removePost: (postID: number) => void
+    likesCount: (postID: number) => void
 }
 
 function App(props: AppPropsType) {
@@ -27,6 +29,8 @@ function App(props: AppPropsType) {
                     <Navbar/>
                     <div className="appMenuContent">
                         <Route path='/profile' render={() => <Profile stateProfile={props.state.profilePage}
+                                                                      removePost={props.removePost}
+                                                                      likesCount={props.likesCount}
                                                                       updatePostText={props.updatePostText}
                                                                       addPost={props.addPost}/>}/>
                         <Route path='/message' render={() => <Message stateMessage={props.state.messagePage}

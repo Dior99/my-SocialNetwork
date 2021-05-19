@@ -60,24 +60,36 @@ export const state: StateType = {
     }
 }
 
-export function addPost () {
+export function addPost() {
     let newPost: PostType = {
         id: 4,
         title: state.profilePage.newPostText,
         likes: 0,
         avatar: AvatarPost
     }
-   state.profilePage.post.push(newPost)
+    state.profilePage.post.push(newPost)
     state.profilePage.newPostText = ''
     rerenderUI(state);
 }
 
-export function updatePostText (newText: string) {
+export function removePost(postID: number) {
+    let delPost = state.profilePage.post
+    state.profilePage.post = delPost.filter(p => p.id !== postID)
+    rerenderUI(state)
+}
+
+export function likesCount(postID: number) {
+    let post = state.profilePage.post
+    state.profilePage.post = post.map(p => p.id === postID ? {...p, likes: p.likes + 1} : {...p})
+    rerenderUI(state)
+}
+
+export function updatePostText(newText: string) {
     state.profilePage.newPostText = newText;
     rerenderUI(state);
 }
 
-export function addMessage () {
+export function addMessage() {
     let newMessage: MessageType = {
         id: 4,
         title: state.messagePage.newMessageText,
@@ -89,7 +101,7 @@ export function addMessage () {
     rerenderUI(state)
 }
 
-export function updateMessageText (newText: string) {
+export function updateMessageText(newText: string) {
     state.messagePage.newMessageText = newText;
     rerenderUI(state)
 }

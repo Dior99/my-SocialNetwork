@@ -1,5 +1,52 @@
 .post {
     margin-top: 10px;
+    border: 1px solid #98a0ac;
+    border-radius: 5px;
+    display: flex;
+    justify-content: space-between;
+}
+.postContent {
+    margin: 5px;
+    display: flex;
+}
+
+.block {
+    margin: 5px;
+}
+
+.removePost {
+    float: right;
+    background-color: white;
+    border: none;
+    cursor: pointer;
+}
+
+.removePost:hover {
+    background-color: #98a0ac;
+    border-radius: 30px;
+    color: white;
+}
+
+.likesPost {
+    margin-top: 25px;
+}
+
+.likesButton {
+    background-color: white;
+    border: none;
+    padding: 3px 8px;
+    cursor: pointer;
+}
+
+.likesButton:hover {
+    background-color: #98a0ac;
+    border-radius: 30px;
+    color: white;
+}
+
+.postText {
+    align-self: center;
+    margin-left: 10px;
 }
 
 .postImg {

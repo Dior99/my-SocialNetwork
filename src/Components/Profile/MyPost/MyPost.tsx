@@ -8,6 +8,8 @@ type MyPostPropsType = {
     newPostText: string
     addPost: () => void
     updatePostText: (newText: string) => void
+    removePost: (postID: number) => void
+    likesCount: (postID: number) => void
 }
 
 export function MyPost(props: MyPostPropsType) {
@@ -15,8 +17,11 @@ export function MyPost(props: MyPostPropsType) {
     const postItems = props.post.map(el => {
         return (
             <Post key={el.id}
+                  id={el.id}
                   title={el.title}
                   likes={el.likes}
+                  likesCount={props.likesCount}
+                  removePost={props.removePost}
                   avatar={el.avatar}/>
         )
     })

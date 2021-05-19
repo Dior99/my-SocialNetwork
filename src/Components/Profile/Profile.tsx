@@ -7,6 +7,8 @@ type ProfilePropsType = {
     stateProfile: ProfilePageType
     addPost: () => void
     updatePostText: (newText: string) => void
+    removePost: (postID: number) => void
+    likesCount: (postID: number) => void
 }
 
 export function Profile(props: ProfilePropsType) {
@@ -24,7 +26,9 @@ export function Profile(props: ProfilePropsType) {
             </div>
             <MyPost post={props.stateProfile.post}
                     newPostText={props.stateProfile.newPostText}
+                    likesCount={props.likesCount}
                     updatePostText={props.updatePostText}
+                    removePost={props.removePost}
                     addPost={props.addPost}/>
         </div>
     )
