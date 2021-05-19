@@ -5,7 +5,7 @@ import {MessageItems} from "./MessageItems/MessageItems";
 import {MessagePageType} from "../../Redux/State";
 
 type MessagePropsType = {
-    stateMessage: MessagePageType
+    messageState: MessagePageType
     addMessage: () => void
     updateMessageText: (newText: string) => void
 }
@@ -14,11 +14,11 @@ export function Message(props: MessagePropsType) {
     return (
         <div>
             <div className={s.message}>
-                <MessageItems messageState={props.stateMessage.message}
-                              newMessageText={props.stateMessage.newMessageText}
+                <MessageItems messageState={props.messageState.message}
+                              newMessageText={props.messageState.newMessageText}
                               addMessage={props.addMessage}
                               updateMessageText={props.updateMessageText}/>
-                <MyDialogs dialogsState={props.stateMessage.dialogs}/>
+                <MyDialogs dialogsState={props.messageState.dialogs}/>
             </div>
         </div>
     )

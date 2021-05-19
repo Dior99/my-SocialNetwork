@@ -11,16 +11,20 @@ import {Settings} from "./Components/Settings/Settings";
 import {StateType} from "./Redux/State";
 
 type AppPropsType = {
-    state: StateType
+    store: StateType
     addPost: () => void
     addMessage: () => void
     updatePostText: (newText: string) => void
     updateMessageText: (newText: string) => void
     removePost: (postID: number) => void
-    likesCount: (postID: number) => void
+    likesPostCount: (postID: number) => void
 }
 
 function App(props: AppPropsType) {
+
+    const profileState = props.store.profilePage
+    const messageState = props.store.messagePage
+
     return (
         <BrowserRouter>
             <div className="appWrapper">
@@ -28,12 +32,12 @@ function App(props: AppPropsType) {
                     <Header/>
                     <Navbar/>
                     <div className="appMenuContent">
-                        <Route path='/profile' render={() => <Profile stateProfile={props.state.profilePage}
+                        <Route path='/profile' render={() => <Profile profileState={profileState}
                                                                       removePost={props.removePost}
-                                                                      likesCount={props.likesCount}
+                                                                      likesPostCount={props.likesPostCount}
                                                                       updatePostText={props.updatePostText}
                                                                       addPost={props.addPost}/>}/>
-                        <Route path='/message' render={() => <Message stateMessage={props.state.messagePage}
+                        <Route path='/message' render={() => <Message messageState={messageState}
                                                                       updateMessageText={props.updateMessageText}
                                                                       addMessage={props.addMessage}/>}/>
                         <Route path='/news' render={() => <News/>}/>

@@ -7,13 +7,13 @@ type PostPropsType = {
     likes: number
     avatar: string
     removePost: (postID: number) => void
-    likesCount: (postID: number) => void
+    likesPostCount: (postID: number) => void
 }
 
 export function Post(props: PostPropsType) {
 
     const removeClickHandler = () => props.removePost(props.id)
-    const likesCount = () => props.likesCount(props.id)
+    const likesCount = () => props.likesPostCount(props.id)
 
     return (
         <div className={s.post}>

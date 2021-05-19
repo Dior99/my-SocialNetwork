@@ -4,11 +4,11 @@ import {MyPost} from "./MyPost/MyPost";
 import {ProfilePageType} from "../../Redux/State";
 
 type ProfilePropsType = {
-    stateProfile: ProfilePageType
+    profileState: ProfilePageType
     addPost: () => void
     updatePostText: (newText: string) => void
     removePost: (postID: number) => void
-    likesCount: (postID: number) => void
+    likesPostCount: (postID: number) => void
 }
 
 export function Profile(props: ProfilePropsType) {
@@ -24,9 +24,9 @@ export function Profile(props: ProfilePropsType) {
                 <div>Current city:</div>
                 <div>Relationship:</div>
             </div>
-            <MyPost post={props.stateProfile.post}
-                    newPostText={props.stateProfile.newPostText}
-                    likesCount={props.likesCount}
+            <MyPost post={props.profileState.post}
+                    newPostText={props.profileState.newPostText}
+                    likesPostCount={props.likesPostCount}
                     updatePostText={props.updatePostText}
                     removePost={props.removePost}
                     addPost={props.addPost}/>

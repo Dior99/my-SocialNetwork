@@ -9,7 +9,7 @@ type MyPostPropsType = {
     addPost: () => void
     updatePostText: (newText: string) => void
     removePost: (postID: number) => void
-    likesCount: (postID: number) => void
+    likesPostCount: (postID: number) => void
 }
 
 export function MyPost(props: MyPostPropsType) {
@@ -20,7 +20,7 @@ export function MyPost(props: MyPostPropsType) {
                   id={el.id}
                   title={el.title}
                   likes={el.likes}
-                  likesCount={props.likesCount}
+                  likesPostCount={props.likesPostCount}
                   removePost={props.removePost}
                   avatar={el.avatar}/>
         )
@@ -40,7 +40,6 @@ export function MyPost(props: MyPostPropsType) {
         <div className={s.contentMyPost}>
             <div>My Post</div>
             <div>
-                New Post
                 <div>
                     <textarea ref={newPostElement}
                               onChange={changeTextarea}
