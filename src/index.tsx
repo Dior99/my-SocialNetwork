@@ -6,13 +6,7 @@ import {store} from "./Redux/State";
 import reportWebVitals from "./reportWebVitals";
 
 const rerenderUI = () => {
-    ReactDOM.render(<App store={store.getState()}
-                         removePost={store.removePost.bind(store)}
-                         likesPostCount={store.likesPostCount.bind(store)}
-                         addPost={store.addPost.bind(store)}
-                         updatePostText={store.updatePostText.bind(store)}
-                         updateMessageText={store.updateMessageText.bind(store)}
-                         addMessage={store.addMessage.bind(store)}/>,
+    ReactDOM.render(<App store={store.getState()} dispatch={store.dispatch.bind(store)}/>,
         document.getElementById('root'));
 }
 

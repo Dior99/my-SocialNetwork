@@ -1,15 +1,12 @@
 import React, {ChangeEvent} from 'react';
 import s from './MyPost.module.css';
 import {Post} from "./Post/Post";
-import {PostType} from "../../../Redux/State";
+import {ActionType, addPostAC, PostType, updatePostTextAC} from "../../../Redux/State";
 
 type MyPostPropsType = {
     post: Array<PostType>
     newPostText: string
-    addPost: () => void
-    updatePostText: (newText: string) => void
-    removePost: (postID: number) => void
-    likesPostCount: (postID: number) => void
+    dispatch: (action: ActionType) => void
 }
 
 export function MyPost(props: MyPostPropsType) {
@@ -20,20 +17,19 @@ export function MyPost(props: MyPostPropsType) {
                   id={el.id}
                   title={el.title}
                   likes={el.likes}
-                  likesPostCount={props.likesPostCount}
-                  removePost={props.removePost}
-                  avatar={el.avatar}/>
+                  avatar={el.avatar}
+                  dispatch={props.dispatch}/>
         )
     })
 
     let newPostElement = React.createRef<HTMLTextAreaElement>()
 
     const addPost = () => {
-            props.addPost();
+            props.dispatch(addPostAC());
     }
 
     const changeTextarea = (e: ChangeEvent<HTMLTextAreaElement>) => {
-        props.updatePostText(e.currentTarget.value)
+        props.dispatch(updatePostTextAC(e.currentTarget.value))
     }
 
     return (

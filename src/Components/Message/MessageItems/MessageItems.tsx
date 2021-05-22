@@ -1,13 +1,12 @@
 import React, {ChangeEvent, KeyboardEvent} from 'react';
 import s from './MessageItems.module.css';
-import {MessageType} from "../../../Redux/State";
+import {ActionType, addMessageAC, MessageType, updateMessageTextAC} from "../../../Redux/State";
 
 
 type MessageItemsPropsType = {
     messageState: Array<MessageType>
     newMessageText: string
-    addMessage: () => void
-    updateMessageText: (newText: string) => void
+    dispatch: (action: ActionType) => void
 }
 
 export function MessageItems(props: MessageItemsPropsType) {
@@ -27,19 +26,19 @@ export function MessageItems(props: MessageItemsPropsType) {
     let messageElement = React.createRef<HTMLInputElement>()
 
     const addMessage = () => {
-        if (messageElement.current && messageElement.current.value.trim() !== "") {
-            props.addMessage();
+        if (messageElement.current) {
+            props.dispatch(addMessageAC());
         }
     }
 
     const onKeyClickEnter = (e: KeyboardEvent<HTMLInputElement>) => {
         if(messageElement.current && e.key === "Enter") {
-            props.addMessage()
+            props.dispatch(addMessageAC())
         }
     }
 
     const changeInputText = (e: ChangeEvent<HTMLInputElement>) => {
-        props.updateMessageText(e.currentTarget.value)
+        props.dispatch(updateMessageTextAC(e.currentTarget.value))
     }
 
     return (

@@ -1,19 +1,19 @@
 import React from 'react';
 import s from './Post.module.css';
+import { ActionType, likesCountAC, removePostAC } from "../../../../Redux/State";
 
 type PostPropsType = {
     title: string
-    id: number
+    id: string
     likes: number
     avatar: string
-    removePost: (postID: number) => void
-    likesPostCount: (postID: number) => void
+    dispatch: (action: ActionType) => void
 }
 
 export function Post(props: PostPropsType) {
 
-    const removeClickHandler = () => props.removePost(props.id)
-    const likesCount = () => props.likesPostCount(props.id)
+    const removeClickHandler = () => props.dispatch(removePostAC(props.id))
+    const likesCount = () => props.dispatch(likesCountAC(props.id))
 
     return (
         <div className={s.post}>
