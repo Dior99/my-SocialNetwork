@@ -1,13 +1,13 @@
 import React from 'react';
 import s from './Post.module.css';
-import { ActionType, likesCountAC, removePostAC } from "../../../../Redux/State";
+import {likesCountAC, removePostAC} from "../../../../Redux/profile-reducer";
 
 type PostPropsType = {
     title: string
     id: string
     likes: number
     avatar: string
-    dispatch: (action: ActionType) => void
+    dispatch: (action: any) => void
 }
 
 export function Post(props: PostPropsType) {

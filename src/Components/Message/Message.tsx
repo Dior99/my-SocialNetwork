@@ -2,11 +2,11 @@ import React from 'react';
 import s from './Message.module.css';
 import {MyDialogs} from "./Dialogs/MyDialogs";
 import {MessageItems} from "./MessageItems/MessageItems";
-import {ActionType, MessagePageType} from "../../Redux/State";
+import {MessagePageType} from "../../Redux/State";
 
 type MessagePropsType = {
     messageState: MessagePageType
-    dispatch: (action: ActionType) => void
+    dispatch: (action: any) => void
 }
 
 export function Message(props: MessagePropsType) {

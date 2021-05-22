@@ -1,12 +1,13 @@
 import React, {ChangeEvent, KeyboardEvent} from 'react';
 import s from './MessageItems.module.css';
-import {ActionType, addMessageAC, MessageType, updateMessageTextAC} from "../../../Redux/State";
+import {MessageType} from "../../../Redux/State";
+import {addMessageAC, updateMessageTextAC} from "../../../Redux/message-reducer";
 
 
 type MessageItemsPropsType = {
     messageState: Array<MessageType>
     newMessageText: string
-    dispatch: (action: ActionType) => void
+    dispatch: (action: any) => void
 }
 
 export function MessageItems(props: MessageItemsPropsType) {
