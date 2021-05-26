@@ -1,5 +1,6 @@
 import {v1} from "uuid";
-import {AvatarPost, PostType, ProfilePageType} from "./State";
+
+export const AvatarPost = "https://photopict.ru/wp-content/uploads/2019/05/kartinki-dlya-stima-4.jpg"
 
 const REMOVE_POST = "REMOVE-POST"
 const LIKES_POST_COUNT = "LIKES-POST-COUNT"
@@ -24,7 +25,25 @@ type UpdatePostTextActionType = {
 
 export type ProfileReducerActionType = AddPostActionType | RemovePostActionType | LikesPostCountActionType | UpdatePostTextActionType
 
-export const profileReducer = (state: ProfilePageType, action: ProfileReducerActionType)=> {
+export type PostType = {
+    id: string
+    title: string
+    likes: number
+    avatar: typeof AvatarPost
+}
+
+const initialState = {
+    post: [
+        {id: v1(), title: 'Post 1', likes: 5, avatar: AvatarPost},
+        {id: v1(), title: 'Post 2', likes: 15, avatar: AvatarPost},
+        {id: v1(), title: 'Post 3', likes: 25, avatar: AvatarPost},
+    ] as Array<PostType>,
+    newPostText: "Hello",
+}
+
+type InitialStateType = typeof initialState
+
+export const profileReducer = (state: InitialStateType = initialState, action: ProfileReducerActionType): InitialStateType => {
     if (action.type === ADD_POST) {
         let newPost: PostType = {
             id: v1(),

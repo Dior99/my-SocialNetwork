@@ -1,22 +1,15 @@
 import React from 'react';
 import s from './Message.module.css';
-import {MyDialogs} from "./Dialogs/MyDialogs";
-import {MessageItems} from "./MessageItems/MessageItems";
-import {MessagePageType} from "../../Redux/State";
+import { MessageItemsContainer } from './MessageItems/MessageItemsContainer';
+import {MyDialogContainer} from "./Dialogs/MyDialogsContainer";
 
-type MessagePropsType = {
-    messageState: MessagePageType
-    dispatch: (action: any) => void
-}
+export function Message() {
 
-export function Message(props: MessagePropsType) {
     return (
         <div>
             <div className={s.message}>
-                <MessageItems messageState={props.messageState.message}
-                              newMessageText={props.messageState.newMessageText}
-                              dispatch={props.dispatch}/>
-                <MyDialogs dialogsState={props.messageState.dialogs}/>
+                <MessageItemsContainer/>
+                <MyDialogContainer/>
             </div>
         </div>
     )

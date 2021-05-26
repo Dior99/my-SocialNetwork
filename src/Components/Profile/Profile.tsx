@@ -1,14 +1,8 @@
 import React from 'react';
 import s from './Profile.module.css';
-import {MyPost} from "./MyPost/MyPost";
-import {ProfilePageType} from "../../Redux/State";
+import {MyPostContainer} from "./MyPost/MyPostContainer";
 
-type ProfilePropsType = {
-    profileState: ProfilePageType
-    dispatch: (action: any) => void
-}
-
-export function Profile(props: ProfilePropsType) {
+export function Profile() {
     return (
         <div className={s.content}>
             <div className={s.contentPhoto} >
@@ -21,9 +15,7 @@ export function Profile(props: ProfilePropsType) {
                 <div>Current city:</div>
                 <div>Relationship:</div>
             </div>
-            <MyPost post={props.profileState.post}
-                    newPostText={props.profileState.newPostText}
-                    dispatch={props.dispatch}/>
+            <MyPostContainer/>
         </div>
     )
 }

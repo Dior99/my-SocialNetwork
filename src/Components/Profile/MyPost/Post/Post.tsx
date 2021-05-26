@@ -1,19 +1,19 @@
 import React from 'react';
 import s from './Post.module.css';
-import {likesCountAC, removePostAC} from "../../../../Redux/profile-reducer";
 
 type PostPropsType = {
     title: string
     id: string
     likes: number
     avatar: string
-    dispatch: (action: any) => void
+    removePost: (postId: string) => void
+    likesCountPost: (postId: string) => void
 }
 
 export function Post(props: PostPropsType) {
 
-    const removeClickHandler = () => props.dispatch(removePostAC(props.id))
-    const likesCount = () => props.dispatch(likesCountAC(props.id))
+    const removeClickHandler = () => props.removePost(props.id)
+    const likesCount = () => props.likesCountPost(props.id)
 
     return (
         <div className={s.post}>

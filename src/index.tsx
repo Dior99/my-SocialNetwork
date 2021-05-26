@@ -2,11 +2,15 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
-import {store} from "./Redux/State";
 import reportWebVitals from "./reportWebVitals";
+import {store} from './Redux/redux-store';
+import {Provider} from "react-redux";
 
 const rerenderUI = () => {
-    ReactDOM.render(<App store={store.getState()} dispatch={store.dispatch.bind(store)}/>,
+    ReactDOM.render(
+        <Provider store={store}>
+            <App/>
+        </Provider>,
         document.getElementById('root'));
 }
 

@@ -1,41 +1,38 @@
 import {v1} from "uuid";
-import {profileReducer} from "./profile-reducer";
-import {messageReducer} from "./message-reducer";
+import {AvatarPost, profileReducer} from "./profile-reducer";
+import {AvatarFriends, messageReducer} from "./message-reducer";
 
-export const AvatarPost = "https://photopict.ru/wp-content/uploads/2019/05/kartinki-dlya-stima-4.jpg"
-export const AvatarFriends = "https://photopict.ru/wp-content/uploads/2019/05/kartinki-dlya-stima-4.jpg"
-
-export type PostType = {
+type PostType = {
     id: string
     title: string
     likes: number
     avatar: typeof AvatarPost
 }
-export type MessageType = {
+type MessageType = {
     id: string
     title: string
     name: string
     avatar: typeof AvatarFriends
 }
-export type DialogType = {
+type DialogType = {
     id: string
     name: string
     avatar: typeof AvatarFriends
 }
-export type ProfilePageType = {
+type ProfilePageType = {
     post: Array<PostType>
     newPostText: string
 }
-export type MessagePageType = {
+type MessagePageType = {
     message: Array<MessageType>
     dialogs: Array<DialogType>
     newMessageText: string
 }
-export type StateType = {
+type StateType = {
     profilePage: ProfilePageType
     messagePage: MessagePageType
 }
-export type StoreType = {
+type StoreType = {
     _state: StateType
     _changedState: () => void
     getState: () => StateType
@@ -43,7 +40,7 @@ export type StoreType = {
     dispatch: (action: any) => void
 }
 
-export const store: StoreType = {
+const store: StoreType = {
     _state: {
         profilePage: {
             post: [

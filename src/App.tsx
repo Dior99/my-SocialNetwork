@@ -3,23 +3,13 @@ import './App.css';
 import {Header} from "./Components/Header/Header";
 import {Navbar} from "./Components/Navbar/Navbar";
 import {Profile} from "./Components/Profile/Profile";
-import {Message} from "./Components/Message/Message";
 import {BrowserRouter, Route} from "react-router-dom";
 import {News} from "./Components/News/News";
 import {Music} from "./Components/Music/Music";
 import {Settings} from "./Components/Settings/Settings";
-import {StateType} from "./Redux/State";
+import { Message } from './Components/Message/Message';
 
-type AppPropsType = {
-    store: StateType
-    dispatch: (action: any) => void
-}
-
-function App(props: AppPropsType) {
-
-    const profileState = props.store.profilePage
-    const messageState = props.store.messagePage
-
+function App() {
     return (
         <BrowserRouter>
             <div className="appWrapper">
@@ -27,8 +17,8 @@ function App(props: AppPropsType) {
                     <Header/>
                     <Navbar/>
                     <div className="appMenuContent">
-                        <Route path='/profile' render={() => <Profile profileState={profileState} dispatch={props.dispatch}/>}/>
-                        <Route path='/message' render={() => <Message messageState={messageState} dispatch={props.dispatch}/>}/>
+                        <Route path='/profile' render={() => <Profile/>}/>
+                        <Route path='/message' render={() => <Message/>}/>
                         <Route path='/news' render={() => <News/>}/>
                         <Route path='/music' render={() => <Music/>}/>
                         <Route path='/settings' render={() => <Settings/>}/>

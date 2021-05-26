@@ -1,15 +1,11 @@
 import React from 'react';
 import {NavLink} from 'react-router-dom';
 import s from './MyDialogs.module.css';
-import {DialogType} from "../../../Redux/State";
+import {DialogsPropsType} from "./MyDialogsContainer";
 
-type MyDialogsPropsType = {
-    dialogsState: Array<DialogType>
-}
+export function MyDialogs(props: DialogsPropsType) {
 
-export function MyDialogs(props: MyDialogsPropsType) {
-
-    const dialogsItems = props.dialogsState.map(i => {
+    const dialogsItems = props.messagePage.dialogs.map(i => {
         return (
             <NavLink to={'/message/' + i.name}
                      key={i.id}
