@@ -51,22 +51,32 @@ export const profileReducer = (state: InitialStateType = initialState, action: P
             likes: 0,
             avatar: AvatarPost
         }
+        let stateCopy = {...state}
+        stateCopy.post = [...state.post]
         if (newPost.title.trim() !== '') {
-            state.post.push(newPost)
-            state.newPostText = ''
+            stateCopy.post.push(newPost)
+            stateCopy.newPostText = ''
         }
+        return stateCopy
     }
     else if (action.type === REMOVE_POST) {
-        debugger
-        let delPost = state.post
-        state.post = delPost.filter(p => p.id !== action.postID)
+        let copyState = {...state}
+        copyState.post = [...state.post]
+        let delPost = copyState.post
+        copyState.post = delPost.filter(p => p.id !== action.postID)
+        return copyState
     }
     else if (action.type === LIKES_POST_COUNT) {
-        let post = state.post
-        state.post = post.map(p => p.id === action.postID ? {...p, likes: p.likes + 1} : {...p})
+        let copyState = {...state}
+        copyState.post = [...state.post]
+        let post = copyState.post
+        copyState.post = post.map(p => p.id === action.postID ? {...p, likes: p.likes + 1} : {...p})
+        return copyState
     }
     else if (action.type === UPDATE_POST_TEXT) {
-        state.newPostText = action.newText;
+        let copyState = {...state}
+        copyState.newPostText = action.newText;
+        return copyState
     }
     return state
 

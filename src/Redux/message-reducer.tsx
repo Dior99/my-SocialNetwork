@@ -53,12 +53,17 @@ export type InitialStateType = typeof initialState
             name: "Kolya",
             avatar: AvatarFriends
         }
+        let stateCopy = {...state}
+        stateCopy.message = [...state.message]
         if (newMessage.title.trim() !== "") {
-            state.message.push(newMessage)
-            state.newMessageText = ''
+            stateCopy.message.push(newMessage)
+            stateCopy.newMessageText = ''
         }
+        return stateCopy
     } else if (action.type === UPDATE_MESSAGE_TEXT) {
-        state.newMessageText = action.newText;
+        let stateCopy = {...state}
+        stateCopy.newMessageText = action.newText;
+        return stateCopy
     }
         return state
 
