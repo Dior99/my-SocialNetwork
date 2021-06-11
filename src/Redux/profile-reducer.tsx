@@ -44,42 +44,39 @@ const initialState = {
 type InitialStateType = typeof initialState
 
 export const profileReducer = (state: InitialStateType = initialState, action: ProfileReducerActionType): InitialStateType => {
-    if (action.type === ADD_POST) {
-        let newPost: PostType = {
-            id: v1(),
-            title: state.newPostText,
-            likes: 0,
-            avatar: AvatarPost
-        }
-        let stateCopy = {...state}
-        stateCopy.post = [...state.post]
-        if (newPost.title.trim() !== '') {
-            stateCopy.post.push(newPost)
-            stateCopy.newPostText = ''
-        }
-        return stateCopy
-    }
-    else if (action.type === REMOVE_POST) {
-        let copyState = {...state}
-        copyState.post = [...state.post]
-        let delPost = copyState.post
-        copyState.post = delPost.filter(p => p.id !== action.postID)
-        return copyState
-    }
-    else if (action.type === LIKES_POST_COUNT) {
-        let copyState = {...state}
-        copyState.post = [...state.post]
-        let post = copyState.post
-        copyState.post = post.map(p => p.id === action.postID ? {...p, likes: p.likes + 1} : {...p})
-        return copyState
-    }
-    else if (action.type === UPDATE_POST_TEXT) {
-        let copyState = {...state}
-        copyState.newPostText = action.newText;
-        return copyState
+    switch (action.type) {
+        case ADD_POST:
+            let newPost: PostType = {
+                id: v1(),
+                title: state.newPostText,
+                likes: 0,
+                avatar: AvatarPost
+            }
+            if (newPost.title.trim() !== '') {
+                return {
+                    ...state,
+                    newPostText: '',
+                    post: [...state.post, newPost]
+                }
+            }
+            break;
+        case REMOVE_POST:
+            return {
+                ...state,
+                post: [...state.post.filter(p => p.id !== action.postID)]
+            }
+        case LIKES_POST_COUNT:
+            return {
+                ...state,
+                post: [...state.post.map(p => p.id === action.postID ? {...p, likes: p.likes + 1} : {...p})]
+            }
+        case UPDATE_POST_TEXT:
+            return {
+                ...state,
+                newPostText: action.newText
+            }
     }
     return state
-
 }
 
 export const removePostAC = (id: string): RemovePostActionType => ({
