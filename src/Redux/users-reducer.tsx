@@ -1,19 +1,15 @@
-import {v1} from "uuid";
-
-export const AvatarPost = "https://photopict.ru/wp-content/uploads/2019/05/kartinki-dlya-stima-4.jpg"
-
 const FOLLOW = "FOLLOW"
 const UNFOLLOW = "UNFOLLOW"
 const SET_USERS = "SET-USERS"
 
 type FollowAT = {
     type: typeof FOLLOW
-    userID: string
+    userID: number
 }
 
 type UnfollowAT = {
     type: typeof UNFOLLOW
-    userID: string
+    userID: number
 }
 
 type SetUsersAT = {
@@ -23,47 +19,20 @@ type SetUsersAT = {
 
 export type ProfileReducerActionType = FollowAT | UnfollowAT | SetUsersAT
 
-type LocationType = {
-    country: string
-    city: string
-}
-
 export type UsersType = {
-    id: string
-    followed: boolean
-    name: string
-    status: string
-    avatar: typeof AvatarPost
-    location: LocationType
+    "name": string
+    "id": number
+    "uniqueUrlName": null
+    "photos": {
+        "small": null | string
+        "large": null | string
+    },
+    "status": null
+    "followed": boolean
 }
 
 const initialState = {
-    users: [
-        /*{
-            id: v1(),
-            followed: false,
-            name: 'Dima',
-            status: "I am a BOSS",
-            avatar: AvatarPost,
-            location: {country: 'Russia', city: 'Moscow'}
-        },
-        {
-            id: v1(),
-            followed: true,
-            name: 'Kristina',
-            status: "Mother",
-            avatar: AvatarPost,
-            location: {country: 'Ukraine', city: 'Kiev'}
-        },
-        {
-            id: v1(),
-            followed: false,
-            name: 'Dima',
-            status: "I am a BOSS",
-            avatar: AvatarPost,
-            location: {country: 'Russia', city: 'Rostov-on-Don'}
-        },*/
-    ] as Array<UsersType>,
+    users: [] as Array<UsersType>,
 }
 
 type InitialStateType = typeof initialState
@@ -80,6 +49,6 @@ export const usersReducer = (state: InitialStateType = initialState, action: Pro
     return state
 }
 
-export const followAC = (userID: string): FollowAT => ({type: FOLLOW, userID})
-export const unfollowAC = (userID: string): UnfollowAT => ({type: UNFOLLOW, userID})
+export const followAC = (userID: number): FollowAT => ({type: FOLLOW, userID})
+export const unfollowAC = (userID: number): UnfollowAT => ({type: UNFOLLOW, userID})
 export const setUsersAC = (users: Array<UsersType>): SetUsersAT => ({type: SET_USERS, users})
