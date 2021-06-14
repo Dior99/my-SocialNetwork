@@ -1,55 +1,76 @@
 import React from 'react';
 import s from './Users.module.css';
-import {UsersPropsType} from "./UsersContainer";
-import axios from "axios";
 import userPhoto from '../../Assets/Images/spaceman.jpg'
-import {PostType} from "../../Redux/profile-reducer";
+import {UsersType} from "../../Redux/users-reducer";
 
-export class Users extends React.Component<UsersPropsType, Array<PostType>>{
+type UsersPropsType2 = {
+    users: Array<UsersType>
+    totalUserCount: number
+    pageSize: number
+    currentPage: number
+    follow: (userID: number) => void
+    unfollow: (userID: number) => void
+    setUsers: (users: Array<UsersType>) => void
+    setCurrentPage: (currentPage: number) => void
+    onPageNumber: (pageNumber: number) => void
+}
 
-    componentDidMount() {
-        axios.get('https://social-network.samuraijs.com/api/1.0/users').then(response => {
-            this.props.setUsers(response.data.items)
-        })
+export function Users(props: UsersPropsType2) {
+
+    let pagesCount = Math.ceil(props.totalUserCount / props.pageSize);
+    let pages = [];
+    for (let i = 1; i <= pagesCount; i++) {
+        pages.push(i);
     }
 
-    render () {
-       return <>
-            <h3>Users</h3>
-            <div className={s.userContainer}>
-                {
-                    this.props.users.map(u => {
-                            const butUnfollowHandler = () => this.props.unfollow(u.id)
-                            const butFollowHandler = () => this.props.follow(u.id)
-                            return (<div key={u.id}>
-                                    <div className={s.userItem}>
+    return <div>
+        <h3>Users</h3>
+        <div style={{'width': '800px', display: "flex", flexWrap: 'wrap'}}>
+            {
+                pages.map(el => {
+                    return (
+                        <span key={el} onClick={() => props.onPageNumber(el)}
+                              className={props.currentPage === el ? s.activeCurrentPage : ''}>{el}</span>
+                    )
+                })
+            }
+        </div>
+        <div className={s.userContainer}>
+            {
+                props.users.map(u => {
+                        const butUnfollowHandler = () => props.unfollow(u.id)
+                        const butFollowHandler = () => props.follow(u.id)
+                        return (<div key={u.id}>
+                                <div className={s.userItem}>
+                                    <div>
+                                        <img className={s.imgUser}
+                                             src={u.photos.small != null ? u.photos.small : userPhoto}/>
+                                    </div>
+                                    <div className={s.userNameBut}>
+                                        <div>{u.name}</div>
                                         <div>
-                                            <img className={s.imgUser} src={u.photos.small != null ? u.photos.small : userPhoto}/>
-                                        </div>
-                                        <div className={s.userNameBut}>
-                                            <div>{u.name}</div>
-                                            <div>
-                                                {
-                                                    u.followed
-                                                        ? <button className={s.butUsers} onClick={butUnfollowHandler}>Unfollow</button>
-                                                        : <button className={s.butUsers} onClick={butFollowHandler}>Follow</button>
-                                                }
-                                            </div>
-                                        </div>
-                                        <div>{u.status}</div>
-                                        <div className={s.locationBlock}>
-                                            <span>Russia</span>
-                                            <span>Rostov</span>
+                                            {
+                                                u.followed
+                                                    ? <button className={s.butUsers}
+                                                              onClick={butUnfollowHandler}>Unfollow</button>
+                                                    : <button className={s.butUsers}
+                                                              onClick={butFollowHandler}>Follow</button>
+                                            }
                                         </div>
                                     </div>
+                                    <div className={s.statusUsers}>{u.status}</div>
+                                    <div className={s.locationBlock}>
+                                        <span>Russia</span>
+                                        <span>Rostov</span>
+                                    </div>
                                 </div>
-                            )
-                        }
-                    )
-                }
-            </div>
-        </>
-    }
+                            </div>
+                        )
+                    }
+                )
+            }
+        </div>
+    </div>
 }
 
 
