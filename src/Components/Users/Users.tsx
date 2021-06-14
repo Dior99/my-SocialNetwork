@@ -25,7 +25,7 @@ export function Users(props: UsersPropsType2) {
 
     return <div>
         <h3>Users</h3>
-        <div style={{'width': '800px', display: "flex", flexWrap: 'wrap'}}>
+        <div style={{'width': '800px', display: "flex", justifyContent: 'space-between' , flexWrap: 'wrap'}}>
             {
                 pages.map(el => {
                     return (

@@ -3,6 +3,7 @@ const UNFOLLOW = "UNFOLLOW"
 const SET_USERS = "SET-USERS"
 const SET_CURRENT_PAGE = "SET-CURRENT-PAGE"
 const SET_TOTAL_USERS = "SET-TOTAL-USERS"
+const SERVER_IS_FETCHING = "SERVER-IS-FETCHING"
 
 type FollowAT = {
     type: typeof FOLLOW
@@ -24,13 +25,24 @@ type SetCurrentPageAT = {
     currentPage: number
 }
 
-type SetTotalUsersCount = {
+type SetTotalUsersCountAT = {
     type: typeof SET_TOTAL_USERS
     totalUsers: number
 
 }
 
-export type ProfileReducerActionType = FollowAT | UnfollowAT | SetUsersAT | SetCurrentPageAT | SetTotalUsersCount
+type ServerIsFetchingAT = {
+    type: typeof SERVER_IS_FETCHING
+    isFetching: boolean
+
+}
+
+export type ProfileReducerActionType = FollowAT
+    | UnfollowAT
+    | SetUsersAT
+    | SetCurrentPageAT
+    | SetTotalUsersCountAT
+    | ServerIsFetchingAT
 
 export type UsersType = {
     "name": string
@@ -45,13 +57,15 @@ export type UsersType = {
     totalUserCount: number
     pageSize: number
     currentPage: number
+    isFetching: boolean
 }
 
 const initialState = {
     users: [] as Array<UsersType>,
     totalUserCount: 12686,
     pageSize: 100,
-    currentPage: 1
+    currentPage: 1,
+    isFetching: false
 }
 
 type InitialStateType = typeof initialState
@@ -68,12 +82,15 @@ export const usersReducer = (state: InitialStateType = initialState, action: Pro
             return {...state, currentPage: action.currentPage}
         case SET_TOTAL_USERS:
             return {...state, totalUserCount: action.totalUsers}
+        case SERVER_IS_FETCHING:
+            return {...state, isFetching: action.isFetching}
     }
     return state;
 }
 
-export const followAC = (userID: number): FollowAT => ({type: FOLLOW, userID})
-export const unfollowAC = (userID: number): UnfollowAT => ({type: UNFOLLOW, userID})
-export const setUsersAC = (users: Array<UsersType>): SetUsersAT => ({type: SET_USERS, users})
-export const setCurrentPagesAC = (currentPage: number): SetCurrentPageAT => ({type: SET_CURRENT_PAGE, currentPage})
-export const setTotalUsersAC = (totalUsers: number): SetTotalUsersCount => ({type: SET_TOTAL_USERS, totalUsers})
+export const follow = (userID: number): FollowAT => ({type: FOLLOW, userID})
+export const unfollow = (userID: number): UnfollowAT => ({type: UNFOLLOW, userID})
+export const setUsers = (users: Array<UsersType>): SetUsersAT => ({type: SET_USERS, users})
+export const setCurrentPage = (currentPage: number): SetCurrentPageAT => ({type: SET_CURRENT_PAGE, currentPage})
+export const setTotalUsers = (totalUsers: number): SetTotalUsersCountAT => ({type: SET_TOTAL_USERS, totalUsers})
+export const serverIsFetching = (isFetching: boolean): ServerIsFetchingAT => ({type: SERVER_IS_FETCHING, isFetching})

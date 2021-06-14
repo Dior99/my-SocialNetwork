@@ -1,5 +1,5 @@
 import React from 'react';
-import './App.css';
+import s from './App.module.css';
 import {Header} from "./Components/Header/Header";
 import {Navbar} from "./Components/Navbar/Navbar";
 import {Profile} from "./Components/Profile/Profile";
@@ -12,18 +12,16 @@ import UsersContainer from "./Components/Users/UsersContainer";
 
 function App() {
     return (
-        <div className="appWrapper">
-            <div className="appContent">
-                <Header/>
-                <Navbar/>
-                <div className="appMenuContent">
-                    <Route path='/profile' render={() => <Profile/>}/>
-                    <Route path='/message' render={() => <Message/>}/>
-                    <Route path='/users' render={() => <UsersContainer/>}/>
-                    <Route path='/news' render={() => <News/>}/>
-                    <Route path='/music' render={() => <Music/>}/>
-                    <Route path='/settings' render={() => <Settings/>}/>
-                </div>
+        <div className={s.appWrapper}>
+            <Header/>
+            <Navbar/>
+            <div className={s.appMenuContent}>
+                <Route path='/profile' render={() => <Profile/>}/>
+                <Route path='/message' render={() => <Message/>}/>
+                <Route path='/users' render={() => <UsersContainer/>}/>
+                <Route path='/news' render={() => <News/>}/>
+                <Route path='/music' render={() => <Music/>}/>
+                <Route path='/settings' render={() => <Settings/>}/>
             </div>
         </div>
     );
