@@ -2,6 +2,7 @@ import React from 'react';
 import s from './Users.module.css';
 import userPhoto from '../../Assets/Images/spaceman.jpg'
 import {UsersType} from "../../Redux/users-reducer";
+import {NavLink} from 'react-router-dom';
 
 type UsersPropsType2 = {
     users: Array<UsersType>
@@ -25,12 +26,15 @@ export function Users(props: UsersPropsType2) {
 
     return <div>
         <h3>Users</h3>
-        <div style={{'width': '800px', display: "flex", justifyContent: 'space-between' , flexWrap: 'wrap'}}>
+        <div className={s.paginationBlock}>
             {
                 pages.map(el => {
                     return (
+
                         <span key={el} onClick={() => props.onPageNumber(el)}
                               className={props.currentPage === el ? s.activeCurrentPage : ''}>{el}</span>
+
+
                     )
                 })
             }
@@ -43,8 +47,10 @@ export function Users(props: UsersPropsType2) {
                         return (<div key={u.id}>
                                 <div className={s.userItem}>
                                     <div>
-                                        <img className={s.imgUser}
-                                             src={u.photos.small != null ? u.photos.small : userPhoto}/>
+                                        <NavLink to={'/profile/' + u.id}>
+                                            <img className={s.imgUser}
+                                                 src={u.photos.small != null ? u.photos.small : userPhoto}/>
+                                        </NavLink>
                                     </div>
                                     <div className={s.userNameBut}>
                                         <div>{u.name}</div>

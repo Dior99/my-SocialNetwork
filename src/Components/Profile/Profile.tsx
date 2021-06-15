@@ -1,19 +1,26 @@
 import React from 'react';
 import s from './Profile.module.css';
 import {MyPostContainer} from "./MyPost/MyPostContainer";
+import {ProfileType} from "../../Redux/profile-reducer";
+import {Preloader} from "../Common/Preloader/Preloader";
 
-export function Profile() {
+type ProfilePropsType = {
+    profile: ProfileType | null
+}
+
+export function Profile(props: ProfilePropsType) {
+    if (!props.profile?.photos) {
+        return <Preloader/>
+    }
+
     return (
         <div className={s.content}>
-            <div className={s.contentPhoto} >
-                <img className={s.contentImg}
-                     src="https://shapka-youtube.ru/wp-content/uploads/2021/02/prikolnaya-avatarka-dlya-patsanov.jpg"/>
+            <div className={s.contentPhoto}>
+                <img className={s.contentImg} src={props.profile.photos.large}/>
             </div>
             <div className={s.contentInfo}>
-                <h3>My name</h3>
-                <div>Birthday:</div>
-                <div>Current city:</div>
-                <div>Relationship:</div>
+                <h3>{props.profile.fullName}</h3>
+                <div>{props.profile.aboutMe}</div>
             </div>
             <MyPostContainer/>
         </div>

@@ -40,7 +40,7 @@ type StoreType = {
     dispatch: (action: any) => void
 }
 
-const store: StoreType = {
+/*const store: StoreType = {
     _state: {
         profilePage: {
             post: [
@@ -82,7 +82,7 @@ const store: StoreType = {
         this._state.messagePage = messageReducer(this._state.messagePage, action)
         this._changedState()
     }
-}
+}*/
 
 
 
