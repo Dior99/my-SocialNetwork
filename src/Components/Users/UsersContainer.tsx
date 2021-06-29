@@ -10,8 +10,8 @@ import {
     unfollow,
     UsersType
 } from "../../Redux/users-reducer";
-import axios from "axios";
 import {Preloader} from "../Common/Preloader/Preloader";
+import {userAPI} from "../../API/api";
 
 type MapStatePropsType = {
     users: Array<UsersType>
@@ -35,25 +35,27 @@ export type UsersPropsType = MapStatePropsType & MapDispatchPropsType
 class UsersContainer extends React.Component<UsersPropsType, Array<UsersType>> {
     componentDidMount() {
         this.props.serverIsFetching(true);
-        axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${this.props.currentPage}&count=${this.props.pageSize}`).then(response => {
-            this.props.setTotalUsers(response.data.totalCount);
-            this.props.serverIsFetching(false);
-            this.props.setUsers(response.data.items);
-        })
+        userAPI.getUser(this.props.currentPage, this.props.pageSize)
+            .then(data => {
+                this.props.setTotalUsers(data.totalCount);
+                this.props.serverIsFetching(false);
+                this.props.setUsers(data.items);
+            })
     }
 
     onPageNumber = (pageNumber: number) => {
         this.props.serverIsFetching(true);
         this.props.setCurrentPage(pageNumber)
-        axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${pageNumber}&count=${this.props.pageSize}`).then(response => {
-            this.props.setUsers(response.data.items);
-            this.props.serverIsFetching(false);
-        })
+        userAPI.onPageNumber(pageNumber, this.props.pageSize)
+            .then(data => {
+                this.props.setUsers(data.items);
+                this.props.serverIsFetching(false);
+            })
     }
 
     render() {
         return <>
-                {this.props.isFetching ? <Preloader/> : null}
+            {this.props.isFetching ? <Preloader/> : null}
             <Users setCurrentPage={this.props.setCurrentPage}
                    onPageNumber={this.onPageNumber}
                    pageSize={this.props.pageSize}
@@ -77,4 +79,11 @@ let mapStateToProps = (state: AppStateType): MapStatePropsType => {
     }
 }
 
-export default connect(mapStateToProps, {follow, unfollow, setUsers, setCurrentPage, setTotalUsers, serverIsFetching})(UsersContainer)
+export default connect(mapStateToProps, {
+    follow,
+    unfollow,
+    setUsers,
+    setCurrentPage,
+    setTotalUsers,
+    serverIsFetching
+})(UsersContainer)

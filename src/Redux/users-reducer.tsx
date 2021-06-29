@@ -45,15 +45,15 @@ export type ProfileReducerActionType = FollowAT
     | ServerIsFetchingAT
 
 export type UsersType = {
-    "name": string
-    "id": number
-    "uniqueUrlName": null
-    "photos": {
-        "small": null | string
-        "large": null | string
+    name: string
+    id: number
+    uniqueUrlName: null
+    photos: {
+        small: null | string
+        large: null | string
     },
-    "status": null
-    "followed": boolean
+    status: null
+    followed: boolean
     totalUserCount: number
     pageSize: number
     currentPage: number

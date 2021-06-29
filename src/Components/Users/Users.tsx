@@ -3,6 +3,8 @@ import s from './Users.module.css';
 import userPhoto from '../../Assets/Images/spaceman.jpg'
 import {UsersType} from "../../Redux/users-reducer";
 import {NavLink} from 'react-router-dom';
+import axios from "axios";
+import {userAPI} from "../../API/api";
 
 type UsersPropsType2 = {
     users: Array<UsersType>
@@ -42,8 +44,22 @@ export function Users(props: UsersPropsType2) {
         <div className={s.userContainer}>
             {
                 props.users.map(u => {
-                        const butUnfollowHandler = () => props.unfollow(u.id)
-                        const butFollowHandler = () => props.follow(u.id)
+                        const butUnfollowHandler = () => {
+                            userAPI.unfollow(u.id)
+                                .then(data => {
+                                    if(data.resultCode === 0) {
+                                        props.unfollow(u.id)
+                                    }
+                                })
+                        }
+                        const butFollowHandler = () => {
+                            userAPI.follow(u.id)
+                                .then(data => {
+                                    if(data.resultCode === 0) {
+                                        props.follow(u.id)
+                                    }
+                                })
+                        }
                         return (<div key={u.id}>
                                 <div className={s.userItem}>
                                     <div>
