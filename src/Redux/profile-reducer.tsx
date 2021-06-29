@@ -92,7 +92,7 @@ export const profileReducer = (state: InitialStateType = initialState, action: P
                     post: [...state.post, newPost]
                 }
             }
-            break;
+            return state
         case REMOVE_POST:
             return {
                 ...state,

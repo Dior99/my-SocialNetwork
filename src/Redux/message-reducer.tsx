@@ -54,13 +54,14 @@ export const messageReducer = (state: InitialStateType = initialState, action: M
                 name: "Kolya",
                 avatar: AvatarFriends
             }
-            if (newMessage.title.trim() !== "")
+            if (newMessage.title.trim() !== "") {
                 return {
                     ...state,
                     newMessageText: '',
                     message: [...state.message, newMessage]
                 }
-            break;
+            }
+            return state
         case UPDATE_MESSAGE_TEXT:
             return {
                 ...state,

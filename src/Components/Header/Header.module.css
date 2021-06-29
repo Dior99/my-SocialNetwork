@@ -2,10 +2,22 @@
     grid-area: h;
     background-color: #dce1e6;
     border-radius: 5px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }
 
 .img {
     width: 40px;
     border-radius: 30px;
     padding: 5px;
+}
+
+.authContainer {
+    margin-right: 15px;
+}
+
+.authContainer a {
+    text-decoration: none;
+    color: #000;
 }
