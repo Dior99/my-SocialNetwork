@@ -8,13 +8,13 @@ import {
     setTotalUsers,
     setUsers,
     unfollow,
-    UsersType
+    UserType
 } from "../../Redux/users-reducer";
 import {Preloader} from "../Common/Preloader/Preloader";
 import {userAPI} from "../../API/api";
 
 type MapStatePropsType = {
-    users: Array<UsersType>
+    users: Array<UserType>
     totalUserCount: number
     pageSize: number
     currentPage: number
@@ -24,7 +24,7 @@ type MapStatePropsType = {
 type MapDispatchPropsType = {
     follow: (userID: number) => void
     unfollow: (userID: number) => void
-    setUsers: (users: Array<UsersType>) => void
+    setUsers: (users: Array<UserType>) => void
     setCurrentPage: (currentPage: number) => void
     setTotalUsers: (totalUsers: number) => void
     serverIsFetching: (isFetching: boolean) => void
@@ -32,7 +32,7 @@ type MapDispatchPropsType = {
 
 export type UsersPropsType = MapStatePropsType & MapDispatchPropsType
 
-class UsersContainer extends React.Component<UsersPropsType, Array<UsersType>> {
+class UsersContainer extends React.Component<UsersPropsType, Array<UserType>> {
     componentDidMount() {
         this.props.serverIsFetching(true);
         userAPI.getUser(this.props.currentPage, this.props.pageSize)

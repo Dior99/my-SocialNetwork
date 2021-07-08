@@ -74,7 +74,7 @@ const initialState = {
     profile: {} as ProfileType | null
 }
 
-type InitialStateType = typeof initialState
+export type InitialStateType = typeof initialState
 
 export const profileReducer = (state: InitialStateType = initialState, action: ProfileReducerActionType): InitialStateType => {
     switch (action.type) {

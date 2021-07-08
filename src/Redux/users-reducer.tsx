@@ -17,7 +17,7 @@ type UnfollowAT = {
 
 type SetUsersAT = {
     type: typeof SET_USERS
-    users: Array<UsersType>
+    users: Array<UserType>
 }
 
 type SetCurrentPageAT = {
@@ -44,7 +44,7 @@ export type ProfileReducerActionType = FollowAT
     | SetTotalUsersCountAT
     | ServerIsFetchingAT
 
-export type UsersType = {
+export type UserType = {
     name: string
     id: number
     uniqueUrlName: null
@@ -54,21 +54,17 @@ export type UsersType = {
     },
     status: null
     followed: boolean
-    totalUserCount: number
-    pageSize: number
-    currentPage: number
-    isFetching: boolean
 }
 
-const initialState = {
-    users: [] as Array<UsersType>,
+export const initialState = {
+    users: [] as Array<UserType>,
     totalUserCount: 12686,
     pageSize: 100,
     currentPage: 1,
     isFetching: false
 }
 
-type InitialStateType = typeof initialState
+export type InitialStateType = typeof initialState
 
 export const usersReducer = (state: InitialStateType = initialState, action: ProfileReducerActionType): InitialStateType => {
     switch (action.type) {
@@ -90,7 +86,7 @@ export const usersReducer = (state: InitialStateType = initialState, action: Pro
 
 export const follow = (userID: number): FollowAT => ({type: FOLLOW, userID})
 export const unfollow = (userID: number): UnfollowAT => ({type: UNFOLLOW, userID})
-export const setUsers = (users: Array<UsersType>): SetUsersAT => ({type: SET_USERS, users})
+export const setUsers = (users: Array<UserType>): SetUsersAT => ({type: SET_USERS, users})
 export const setCurrentPage = (currentPage: number): SetCurrentPageAT => ({type: SET_CURRENT_PAGE, currentPage})
 export const setTotalUsers = (totalUsers: number): SetTotalUsersCountAT => ({type: SET_TOTAL_USERS, totalUsers})
 export const serverIsFetching = (isFetching: boolean): ServerIsFetchingAT => ({type: SERVER_IS_FETCHING, isFetching})

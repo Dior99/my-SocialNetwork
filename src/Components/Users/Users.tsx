@@ -1,19 +1,19 @@
 import React from 'react';
 import s from './Users.module.css';
 import userPhoto from '../../Assets/Images/spaceman.jpg'
-import {UsersType} from "../../Redux/users-reducer";
+import {UserType} from "../../Redux/users-reducer";
 import {NavLink} from 'react-router-dom';
 import axios from "axios";
 import {userAPI} from "../../API/api";
 
 type UsersPropsType2 = {
-    users: Array<UsersType>
+    users: Array<UserType>
     totalUserCount: number
     pageSize: number
     currentPage: number
     follow: (userID: number) => void
     unfollow: (userID: number) => void
-    setUsers: (users: Array<UsersType>) => void
+    setUsers: (users: Array<UserType>) => void
     setCurrentPage: (currentPage: number) => void
     onPageNumber: (pageNumber: number) => void
 }
