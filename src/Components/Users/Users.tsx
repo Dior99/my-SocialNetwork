@@ -3,7 +3,6 @@ import s from './Users.module.css';
 import userPhoto from '../../Assets/Images/spaceman.jpg'
 import {UserType} from "../../Redux/users-reducer";
 import {NavLink} from 'react-router-dom';
-import {userAPI} from "../../API/api";
 
 type UsersPropsType2 = {
     users: Array<UserType>
@@ -12,10 +11,7 @@ type UsersPropsType2 = {
     currentPage: number
     follow: (userID: number) => void
     unfollow: (userID: number) => void
-    setUsers: (users: Array<UserType>) => void
-    setCurrentPage: (currentPage: number) => void
     onPageNumber: (pageNumber: number) => void
-    setFollowingInProgress: (isFetching: boolean, userId: number) => void
     followingInProgress: Array<number>
 }
 
@@ -45,27 +41,8 @@ export function Users(props: UsersPropsType2) {
         <div className={s.userContainer}>
             {
                 props.users.map(u => {
-
-                        const butUnfollowHandler = () => {
-                            props.setFollowingInProgress(true, u.id)
-                            userAPI.unfollow(u.id)
-                                .then(data => {
-                                    if(data.resultCode === 0) {
-                                        props.unfollow(u.id)
-                                    }
-                                    props.setFollowingInProgress(false, u.id)
-                                })
-                        }
-                        const butFollowHandler = () => {
-                            props.setFollowingInProgress(true, u.id)
-                            userAPI.follow(u.id)
-                                .then(data => {
-                                    if(data.resultCode === 0) {
-                                        props.follow(u.id)
-                                    }
-                                    props.setFollowingInProgress(false, u.id)
-                                })
-                        }
+                        const butUnfollowHandler = () => props.unfollow(u.id)
+                        const butFollowHandler = () => props.follow(u.id)
                         return (<div key={u.id}>
                                 <div className={s.userItem}>
                                     <div>

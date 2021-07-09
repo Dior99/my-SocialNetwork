@@ -13,7 +13,7 @@ type UpdateMessageTextActionType = {
     newText: string
 }
 
-export type MessageReducerActionType = AddMessageActionType | UpdateMessageTextActionType
+export type MessageActionType = AddMessageActionType | UpdateMessageTextActionType
 
 export type MessageType = {
     id: string
@@ -45,7 +45,7 @@ const initialState = {
 
 export type InitialStateType = typeof initialState
 
-export const messageReducer = (state: InitialStateType = initialState, action: MessageReducerActionType): InitialStateType => {
+export const messageReducer = (state: InitialStateType = initialState, action: MessageActionType): InitialStateType => {
     switch (action.type) {
         case ADD_MESSAGE:
             let newMessage: MessageType = {

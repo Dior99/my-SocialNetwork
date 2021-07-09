@@ -1,4 +1,6 @@
 import {v1} from "uuid";
+import {profileAPI} from "../API/api";
+import {Dispatch} from "redux";
 
 export const AvatarPost = "https://photopict.ru/wp-content/uploads/2019/05/kartinki-dlya-stima-4.jpg"
 
@@ -28,7 +30,7 @@ type setUserProfileActionType = {
     profile: ProfileType | null
 }
 
-export type ProfileReducerActionType = AddPostActionType
+export type ProfileActionType = AddPostActionType
     | RemovePostActionType
     | LikesPostCountActionType
     | UpdatePostTextActionType
@@ -76,7 +78,7 @@ const initialState = {
 
 export type InitialStateType = typeof initialState
 
-export const profileReducer = (state: InitialStateType = initialState, action: ProfileReducerActionType): InitialStateType => {
+export const profileReducer = (state: InitialStateType = initialState, action: ProfileActionType): InitialStateType => {
     switch (action.type) {
         case ADD_POST:
             let newPost: PostType = {
@@ -130,3 +132,13 @@ export const updatePostTextAC = (newText: string): UpdatePostTextActionType => (
     newText: newText
 })
 export const setUserProfile = (profile: ProfileType | null): setUserProfileActionType => ({type: SET_USER_PROFILE, profile})
+
+export const getProfile = (userId: string) => (dispatch: Dispatch<ProfileActionType>) => {
+    profileAPI.getProfile(userId)
+        .then(response => {
+            dispatch(setUserProfile(response.data))
+        })
+}
+
+
+

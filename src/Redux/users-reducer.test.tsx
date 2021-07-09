@@ -1,10 +1,10 @@
 import {
-    follow,
+    followAC,
     initialState,
     InitialStateType, serverIsFetching, setCurrentPage, setFollowingInProgress,
     setTotalUsers,
     setUsers,
-    unfollow,
+    unfollowAC,
     usersReducer,
     UserType
 } from "./users-reducer"
@@ -37,7 +37,7 @@ beforeEach(() => {
 test("user subscription", () => {
     let state = startState;
 
-    state = usersReducer(state, follow(1))
+    state = usersReducer(state, followAC(1))
 
     expect(state.users.filter(u => u.followed && u.id === 1).length).toBe(1)
 })
@@ -45,7 +45,7 @@ test("user subscription", () => {
 test("unsubscribe from user", () => {
     let state = startState;
 
-    state = usersReducer(state, unfollow(1))
+    state = usersReducer(state, unfollowAC(1))
 
     expect(state.users.filter(u => !u.followed && u.id === 1).length).toBe(1)
 })

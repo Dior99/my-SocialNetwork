@@ -1,3 +1,6 @@
+import {Dispatch} from "redux";
+import {authAPI} from "../API/api";
+
 enum AUTH_ACTION_TYPE {
     SET_USER_DATA = "AUTH/SET-USER-DATA"
 }
@@ -20,9 +23,9 @@ const initialState = {
 
 export type InitialStateType = typeof initialState;
 
-type ActionType = SetUserData;
+type AuthActionType = SetUserData;
 
-export const authReducer = (state: InitialStateType = initialState, action: ActionType): InitialStateType => {
+export const authReducer = (state: InitialStateType = initialState, action: AuthActionType): InitialStateType => {
     switch (action.type) {
         case AUTH_ACTION_TYPE.SET_USER_DATA:
             return {...state, ...action.data, isAuth: true} as InitialStateType;
@@ -31,4 +34,17 @@ export const authReducer = (state: InitialStateType = initialState, action: Acti
     }
 }
 
-export const setUserData = (email: null | string, id: null | string, login: null | string): SetUserData => ({type: AUTH_ACTION_TYPE.SET_USER_DATA, data: {email, id, login}});
+export const setUserData = (email: null | string, id: null | string, login: null | string): SetUserData =>
+    ({type: AUTH_ACTION_TYPE.SET_USER_DATA, data: {email, id, login}});
+
+export const setLoginUser = () => (dispatch: Dispatch<AuthActionType>) => {
+    authAPI.getAuth()
+        .then(data => {
+            if (data.resultCode === 0) {
+                let {email, id, login} = data.data
+                dispatch(setUserData(email, id, login))
+            }
+        })
+}
+
+
