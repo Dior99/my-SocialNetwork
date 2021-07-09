@@ -4,6 +4,7 @@ const SET_USERS = "SET-USERS"
 const SET_CURRENT_PAGE = "SET-CURRENT-PAGE"
 const SET_TOTAL_USERS = "SET-TOTAL-USERS"
 const SERVER_IS_FETCHING = "SERVER-IS-FETCHING"
+const FOLLOWING_IN_PROGRESS = "FOLLOWING-IN-PROGRESS"
 
 type FollowAT = {
     type: typeof FOLLOW
@@ -34,7 +35,12 @@ type SetTotalUsersCountAT = {
 type ServerIsFetchingAT = {
     type: typeof SERVER_IS_FETCHING
     isFetching: boolean
+}
 
+type FollowingInProgressAT = {
+    type: typeof FOLLOWING_IN_PROGRESS
+    isFetching: boolean
+    userId: number
 }
 
 export type ProfileReducerActionType = FollowAT
@@ -43,6 +49,7 @@ export type ProfileReducerActionType = FollowAT
     | SetCurrentPageAT
     | SetTotalUsersCountAT
     | ServerIsFetchingAT
+    | FollowingInProgressAT
 
 export type UserType = {
     name: string
@@ -61,7 +68,8 @@ export const initialState = {
     totalUserCount: 12686,
     pageSize: 100,
     currentPage: 1,
-    isFetching: false
+    isFetching: false,
+    followingInProgress: [] as Array<number>
 }
 
 export type InitialStateType = typeof initialState
@@ -80,6 +88,13 @@ export const usersReducer = (state: InitialStateType = initialState, action: Pro
             return {...state, totalUserCount: action.totalUsers}
         case SERVER_IS_FETCHING:
             return {...state, isFetching: action.isFetching}
+        case FOLLOWING_IN_PROGRESS:
+            return {
+                ...state,
+                followingInProgress: action.isFetching
+                    ? [...state.followingInProgress, action.userId ]
+                    : state.followingInProgress.filter(f => f !== action.userId)
+            }
     }
     return state;
 }
@@ -90,3 +105,4 @@ export const setUsers = (users: Array<UserType>): SetUsersAT => ({type: SET_USER
 export const setCurrentPage = (currentPage: number): SetCurrentPageAT => ({type: SET_CURRENT_PAGE, currentPage})
 export const setTotalUsers = (totalUsers: number): SetTotalUsersCountAT => ({type: SET_TOTAL_USERS, totalUsers})
 export const serverIsFetching = (isFetching: boolean): ServerIsFetchingAT => ({type: SERVER_IS_FETCHING, isFetching})
+export const setFollowingInProgress = (isFetching: boolean, userId: number): FollowingInProgressAT => ({type: FOLLOWING_IN_PROGRESS, isFetching, userId})

@@ -1,7 +1,7 @@
 import {
     follow,
     initialState,
-    InitialStateType, serverIsFetching, setCurrentPage,
+    InitialStateType, serverIsFetching, setCurrentPage, setFollowingInProgress,
     setTotalUsers,
     setUsers,
     unfollow,
@@ -29,7 +29,8 @@ beforeEach(() => {
         totalUserCount: 12686,
         pageSize: 100,
         currentPage: 1,
-        isFetching: false
+        isFetching: false,
+        followingInProgress: [2, 3, 4, 5]
     }
 })
 
@@ -81,4 +82,11 @@ test("the isFetching value should change", () => {
     let state = usersReducer(startState, serverIsFetching(true))
 
     expect(state.isFetching).toBe(true)
+})
+
+test("if isFetching is true then follow/unfollow buttons should be desabled", () => {
+
+    let state = usersReducer(startState, setFollowingInProgress(false, 2))
+
+    expect(state.followingInProgress).toEqual([3, 4, 5])
 })
