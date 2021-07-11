@@ -1,4 +1,4 @@
-import React from "react";
+import React, {ComponentType} from "react";
 import {connect} from "react-redux";
 import {Users} from "./Users";
 import {AppStateType} from "../../Redux/redux-store";
@@ -11,7 +11,9 @@ import {
     unfollowTC,
     UserType
 } from "../../Redux/users-reducer";
-import {Preloader} from "../Common/Preloader/Preloader";
+import {Preloader} from "../Common/Preloader/Preloader"
+import {redirectToLogin} from "../../HOC/redirectToLogin";
+import { compose } from "redux";
 
 type MapStatePropsType = {
     users: Array<UserType>
@@ -20,6 +22,7 @@ type MapStatePropsType = {
     currentPage: number
     isFetching: boolean
     followingInProgress: Array<number>
+    isAuth: boolean
 }
 
 type MapDispatchPropsType = {
@@ -62,15 +65,16 @@ let mapStateToProps = (state: AppStateType): MapStatePropsType => {
         pageSize: state.usersPage.pageSize,
         currentPage: state.usersPage.currentPage,
         isFetching: state.usersPage.isFetching,
-        followingInProgress: state.usersPage.followingInProgress
+        followingInProgress: state.usersPage.followingInProgress,
+        isAuth: state.auth.isAuth
     }
 }
 
-export default connect(mapStateToProps, {
+export default compose<ComponentType>(connect(mapStateToProps, {
     setUsers,
     setCurrentPage,
     getUsers,
     onPageNumber,
     followTC,
     unfollowTC
-})(UsersContainer)
+}), redirectToLogin)(UsersContainer)

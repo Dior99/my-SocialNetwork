@@ -1,8 +1,10 @@
-import {addMessageAC, MessageType, updateMessageTextAC} from "../../../Redux/message-reducer";
+import {addMessage, MessageType, updateMessageText} from "../../../Redux/message-reducer";
 import {MessageItems} from "./MessageItems";
 import {connect} from "react-redux";
-import {Dispatch} from "redux";
+import {compose} from "redux";
 import {AppStateType} from "../../../Redux/redux-store";
+import {redirectToLogin} from "../../../HOC/redirectToLogin";
+import {ComponentType} from "react";
 
 type MapStateToPropsType = {
     messages: Array<MessageType>
@@ -23,16 +25,7 @@ const mapStateToProps = (state: AppStateType): MapStateToPropsType => {
     }
 }
 
-const mapDispatchToProps = (dispatch: Dispatch): MapDispatchToPropsType => {
-    return {
-        addMessage: () => {
-            dispatch(addMessageAC());
-        },
-        updateMessageText: (text: string) => {
-            dispatch(updateMessageTextAC(text))
-        }
-    }
-}
-
-export const MessageItemsContainer = connect(mapStateToProps, mapDispatchToProps) (MessageItems)
+export default compose<ComponentType>(
+    connect(mapStateToProps, {addMessage, updateMessageText}),
+    redirectToLogin)(MessageItems)
 

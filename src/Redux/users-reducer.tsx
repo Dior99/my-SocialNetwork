@@ -92,12 +92,14 @@ export const usersReducer = (state: InitialStateType = initialState, action: Use
         case SERVER_IS_FETCHING:
             return {...state, isFetching: action.isFetching}
         case FOLLOWING_IN_PROGRESS:
-            return {
+            debugger
+        let a = {
                 ...state,
                 followingInProgress: action.isFetching
                     ? [...state.followingInProgress, action.userId ]
                     : state.followingInProgress.filter(f => f !== action.userId)
             }
+            return a
     }
     return state;
 }
@@ -131,6 +133,7 @@ export const onPageNumber = (pageNumber: number, pageSize: number) => (dispatch:
 }
 
 export const followTC = (userId: number) => (dispatch: Dispatch<UsersActionType>) => {
+    debugger
     dispatch(setFollowingInProgress(true, userId))
     userAPI.follow(userId)
         .then(data => {
@@ -142,6 +145,7 @@ export const followTC = (userId: number) => (dispatch: Dispatch<UsersActionType>
 }
 
 export const unfollowTC = (userId: number) => (dispatch: Dispatch<UsersActionType>) => {
+   debugger
     dispatch(setFollowingInProgress(true, userId))
     userAPI.unfollow(userId)
         .then(data => {

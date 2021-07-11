@@ -1,9 +1,11 @@
-import React from 'react';
+import React, {ComponentType} from 'react';
 import {Profile} from "./Profile";
 import {connect} from "react-redux";
 import {AppStateType} from "../../Redux/redux-store";
 import {getProfile, ProfileType} from "../../Redux/profile-reducer";
 import {RouteComponentProps, withRouter} from 'react-router-dom';
+import {redirectToLogin} from "../../HOC/redirectToLogin";
+import {compose} from "redux";
 
 type MapStateProps = {
     profile: ProfileType | null
@@ -22,7 +24,7 @@ class ProfileContainer extends React.Component<ProfilePropsType> {
     componentDidMount() {
         let userId = this.props.match.params.userId
         if (!userId) {
-            userId = '2';
+            userId = '13206';
         }
         this.props.getProfile(userId)
     }
@@ -40,6 +42,9 @@ const mapStateToProps = (state: AppStateType): MapStateProps => {
 
 let routerProfileContainer = withRouter(ProfileContainer);
 
-export default connect(mapStateToProps, {getProfile})(routerProfileContainer)
+
+export default compose<ComponentType>(
+    connect(mapStateToProps, {getProfile}),
+    redirectToLogin)(routerProfileContainer)
 
 

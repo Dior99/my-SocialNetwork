@@ -9,6 +9,7 @@ import {Message} from './Components/Message/Message';
 import UsersContainer from "./Components/Users/UsersContainer";
 import ProfileContainer from "./Components/Profile/ProfileContainer";
 import HeaderContainer from "./Components/Header/HeaderContainer";
+import {Login} from "./Components/Login/Login";
 
 function App() {
     return (
@@ -19,6 +20,7 @@ function App() {
                 <Route path='/profile/:userId?' render={() => <ProfileContainer/>}/>
                 <Route path='/message' render={() => <Message/>}/>
                 <Route path='/users' render={() => <UsersContainer/>}/>
+                <Route path='/login' render={() => <Login/>}/>
                 <Route path='/news' render={() => <News/>}/>
                 <Route path='/music' render={() => <Music/>}/>
                 <Route path='/settings' render={() => <Settings/>}/>
