@@ -27,5 +27,6 @@ const mapStateToProps = (state: AppStateType): MapStateToPropsType => {
 
 export default compose<ComponentType>(
     connect(mapStateToProps, {addMessage, updateMessageText}),
-    redirectToLogin)(MessageItems)
+    //redirectToLogin
+)(MessageItems)
 

@@ -76,5 +76,6 @@ export default compose<ComponentType>(connect(mapStateToProps, {
     getUsers,
     onPageNumber,
     followTC,
-    unfollowTC
-}), redirectToLogin)(UsersContainer)
+    unfollowTC }),
+    //redirectToLogin
+)(UsersContainer)

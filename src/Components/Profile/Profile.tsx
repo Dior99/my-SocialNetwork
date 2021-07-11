@@ -3,9 +3,11 @@ import s from './Profile.module.css';
 import {MyPostContainer} from "./MyPost/MyPostContainer";
 import {ProfileType} from "../../Redux/profile-reducer";
 import {Preloader} from "../Common/Preloader/Preloader";
+import {ProfileInfo} from "./ProfileInfo/ProfileInfo";
 
 type ProfilePropsType = {
     profile: ProfileType | null
+    updateStatus: (status: string) => void
 }
 
 export function Profile(props: ProfilePropsType) {
@@ -19,12 +21,15 @@ export function Profile(props: ProfilePropsType) {
                 <img className={s.contentImg} src={props.profile.photos.large}/>
             </div>
             <div className={s.contentInfo}>
-                <h3>{props.profile.fullName}</h3>
-                <div>{props.profile.aboutMe}</div>
+                <ProfileInfo fullName={props.profile.fullName}
+                             aboutMe={props.profile.aboutMe}
+                             updateStatus={props.updateStatus}/>
             </div>
             <MyPostContainer/>
         </div>
     )
 }
+
+
 
 
