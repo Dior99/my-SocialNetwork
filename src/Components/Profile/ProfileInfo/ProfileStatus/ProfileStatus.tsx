@@ -6,6 +6,11 @@ type ProfileStatusPropsType = {
     updateStatus: (status: string) => void
 }
 
+type ProfileStatusStateType = {
+    editMode: boolean
+    userStatus: string
+}
+
 export class ProfileStatus extends React.Component<ProfileStatusPropsType> {
     state = {
         editMode: false,
@@ -29,6 +34,14 @@ export class ProfileStatus extends React.Component<ProfileStatusPropsType> {
         this.setState({
             userStatus: e.currentTarget.value
         })
+    }
+
+    componentDidUpdate(prevProps: Readonly<ProfileStatusPropsType>, prevState: Readonly<ProfileStatusStateType>) {
+        if(prevProps.status !== this.props.status) {
+            this.setState({
+                userStatus: this.props.status
+            })
+        }
     }
 
     render() {
