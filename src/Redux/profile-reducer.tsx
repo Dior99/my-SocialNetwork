@@ -7,12 +7,12 @@ export const AvatarPost = "https://photopict.ru/wp-content/uploads/2019/05/karti
 const REMOVE_POST = "REMOVE-POST"
 const LIKES_POST_COUNT = "LIKES-POST-COUNT"
 const ADD_POST = "ADD-POST"
-const UPDATE_POST_TEXT = "UPDATE-POST-TEXT"
 const SET_USER_PROFILE = "SET-USER-PROFILE"
 const SET_USER_STATUS = "SET-USER-STATUS"
 
 type AddPostActionType = {
     type: typeof ADD_POST
+    newPost: string
 }
 type RemovePostActionType = {
     type: typeof REMOVE_POST
@@ -21,10 +21,6 @@ type RemovePostActionType = {
 type LikesPostCountActionType = {
     type: typeof LIKES_POST_COUNT
     postID: string
-}
-type UpdatePostTextActionType = {
-    type: typeof UPDATE_POST_TEXT
-    newText: string
 }
 type setUserProfileActionType = {
     type: typeof SET_USER_PROFILE
@@ -38,7 +34,6 @@ type setUserStatusActionType = {
 export type ProfileActionType = AddPostActionType
     | RemovePostActionType
     | LikesPostCountActionType
-    | UpdatePostTextActionType
     | setUserProfileActionType
     | setUserStatusActionType
 
@@ -78,7 +73,6 @@ const initialState = {
         {id: v1(), title: 'Post 2', likes: 15, avatar: AvatarPost},
         {id: v1(), title: 'Post 3', likes: 25, avatar: AvatarPost},
     ] as Array<PostType>,
-    newPostText: "Hello",
     profile: {} as ProfileType | null,
     status: ""
 }
@@ -90,14 +84,13 @@ export const profileReducer = (state: InitialStateType = initialState, action: P
         case ADD_POST:
             let newPost: PostType = {
                 id: v1(),
-                title: state.newPostText,
+                title: action.newPost,
                 likes: 0,
                 avatar: AvatarPost
             }
             if (newPost.title.trim() !== '') {
                 return {
                     ...state,
-                    newPostText: '',
                     post: [...state.post, newPost]
                 }
             }
@@ -111,11 +104,6 @@ export const profileReducer = (state: InitialStateType = initialState, action: P
             return {
                 ...state,
                 post: [...state.post.map(p => p.id === action.postID ? {...p, likes: p.likes + 1} : {...p})]
-            }
-        case UPDATE_POST_TEXT:
-            return {
-                ...state,
-                newPostText: action.newText
             }
         case SET_USER_PROFILE:
             return {...state, profile: action.profile}
@@ -134,12 +122,8 @@ export const likesCountAC = (id: string): LikesPostCountActionType => ({
     type: LIKES_POST_COUNT,
     postID: id
 })
-export const addPostAC = (): AddPostActionType => ({
-    type: ADD_POST
-})
-export const updatePostTextAC = (newText: string): UpdatePostTextActionType => ({
-    type: UPDATE_POST_TEXT,
-    newText: newText
+export const addPostAC = (newPost: string): AddPostActionType => ({
+    type: ADD_POST, newPost
 })
 export const setUserProfile = (profile: ProfileType | null): setUserProfileActionType => ({type: SET_USER_PROFILE, profile})
 export const setUserStatus = (status: string): setUserStatusActionType => ({type: SET_USER_STATUS, status})

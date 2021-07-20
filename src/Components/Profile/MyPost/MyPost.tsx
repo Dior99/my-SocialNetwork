@@ -1,6 +1,7 @@
-import React, {ChangeEvent} from 'react';
+import React from 'react';
 import s from './MyPost.module.css';
 import {Post} from "./Post/Post";
+import {Field, InjectedFormProps, reduxForm} from "redux-form";
 import {MyPostPropsType} from "./MyPostContainer";
 
 export function MyPost(props: MyPostPropsType) {
@@ -17,30 +18,36 @@ export function MyPost(props: MyPostPropsType) {
         )
     })
 
-    let newPostElement = React.createRef<HTMLTextAreaElement>()
-
-    const addPost = () => {
-            props.addPost();
-    }
-
-    const changeTextarea = (e: ChangeEvent<HTMLTextAreaElement>) => {
-        props.changePostText(e.currentTarget.value)
+    const addPost = (values: AddPostFormDataType) => {
+            props.addPost(values.post);
     }
 
     return (
         <div className={s.contentMyPost}>
             <div>My Post</div>
             <div>
-                <div>
-                    <textarea ref={newPostElement}
-                              onChange={changeTextarea}
-                              value={props.newPostText}/>
-                </div>
-                <button onClick={addPost}>Post</button>
+                <AddPostFormContainer onSubmit={addPost}/>
             </div>
             { postItems }
         </div>
     )
 }
+
+type AddPostFormDataType = {
+    post: string
+}
+
+function AddPostForm (props: InjectedFormProps<AddPostFormDataType>) {
+    return (
+        <form onSubmit={props.handleSubmit}>
+            <div>
+                <Field component="textarea" name="post" placeholder="New post" />
+            </div>
+            <button>Post</button>
+        </form>
+    )
+}
+
+const AddPostFormContainer = reduxForm<AddPostFormDataType>({form: "AddPostForm"})(AddPostForm)
 
 

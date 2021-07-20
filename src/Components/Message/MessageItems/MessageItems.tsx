@@ -1,6 +1,7 @@
-import React, {ChangeEvent, KeyboardEvent} from 'react';
+import React from 'react';
 import s from './MessageItems.module.css';
 import {MessagePropsType} from "./MessageItemsContainer";
+import {Field, InjectedFormProps, reduxForm} from "redux-form";
 
 export function MessageItems(props: MessagePropsType) {
 
@@ -16,35 +17,36 @@ export function MessageItems(props: MessagePropsType) {
         )
     })
 
-    let messageElement = React.createRef<HTMLInputElement>()
-
-    const addMessage = () => props.addMessage()
-
-    const onKeyClickEnter = (e: KeyboardEvent<HTMLInputElement>) => {
-        if(e.key === "Enter") {
-            props.addMessage()
-        }
-    }
-
-    const changeInputTextHandler = (e: ChangeEvent<HTMLInputElement>) => {
-        props.updateMessageText(e.currentTarget.value)
+    const addMessage = (values: AddMessageFormDataType) => {
+        props.addMessage(values.message)
     }
 
     return (
         <div className={s.messageHeader}>
             {messageItems}
             <div>
-                <div>
-                    <input ref={messageElement}
-                           onChange={changeInputTextHandler}
-                           value={props.newMessageText}
-                           onKeyPress={onKeyClickEnter}/>
-                </div>
-                <div>
-                    <button onClick={addMessage} >Add</button>
-                </div>
+                <AddMessageFormContainer onSubmit={addMessage}/>
             </div>
         </div>
     )
 }
+
+type AddMessageFormDataType = {
+    message: string
+}
+
+function AddMessageForm (props: InjectedFormProps<AddMessageFormDataType>) {
+    return (
+        <form onSubmit={props.handleSubmit}>
+            <div>
+                <Field component="input" name="message" plaseholder="New Message"/>
+            </div>
+            <div>
+                <button>Add</button>
+            </div>
+        </form>
+    )
+}
+
+const AddMessageFormContainer = reduxForm<AddMessageFormDataType>({form: "addMessage"})(AddMessageForm)
 

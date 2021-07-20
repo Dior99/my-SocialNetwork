@@ -3,17 +3,13 @@ import {v1} from "uuid";
 export const AvatarFriends = "https://photopict.ru/wp-content/uploads/2019/05/kartinki-dlya-stima-4.jpg"
 
 const ADD_MESSAGE = "ADD-MESSAGE"
-const UPDATE_MESSAGE_TEXT = "UPDATE-MESSAGE-TEXT"
 
 type AddMessageActionType = {
     type: "ADD-MESSAGE"
-}
-type UpdateMessageTextActionType = {
-    type: "UPDATE-MESSAGE-TEXT"
-    newText: string
+    newMessage: string
 }
 
-export type MessageActionType = AddMessageActionType | UpdateMessageTextActionType
+export type MessageActionType = AddMessageActionType
 
 export type MessageType = {
     id: string
@@ -33,7 +29,6 @@ const initialState = {
         {id: v1(), title: "How are your?", name: "Kristina", avatar: AvatarFriends},
         {id: v1(), title: "Hello, I am fine", name: "Kolya", avatar: AvatarFriends},
     ] as Array<MessageType>,
-    newMessageText: "Hello",
     dialogs: [
         {id: v1(), name: 'Kolya', avatar: AvatarFriends},
         {id: v1(), name: 'Kristina', avatar: AvatarFriends},
@@ -50,32 +45,22 @@ export const messageReducer = (state: InitialStateType = initialState, action: M
         case ADD_MESSAGE:
             let newMessage: MessageType = {
                 id: v1(),
-                title: state.newMessageText,
+                title: action.newMessage,
                 name: "Kolya",
                 avatar: AvatarFriends
             }
             if (newMessage.title.trim() !== "") {
                 return {
                     ...state,
-                    newMessageText: '',
                     message: [...state.message, newMessage]
                 }
             }
             return state
-        case UPDATE_MESSAGE_TEXT:
-            return {
-                ...state,
-                newMessageText: action.newText
-            }
     }
     return state
 
 }
 
-export const addMessage = (): AddMessageActionType => ({
-    type: ADD_MESSAGE
-})
-export const updateMessageText = (newMessage: string): UpdateMessageTextActionType => ({
-    type: UPDATE_MESSAGE_TEXT,
-    newText: newMessage
+export const addMessage = (newMessage: string): AddMessageActionType => ({
+    type: ADD_MESSAGE, newMessage
 })

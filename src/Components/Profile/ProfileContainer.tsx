@@ -4,7 +4,6 @@ import {connect} from "react-redux";
 import {AppStateType} from "../../Redux/redux-store";
 import {getProfile, getStatus, ProfileType, updateStatus} from "../../Redux/profile-reducer";
 import {RouteComponentProps, withRouter} from 'react-router-dom';
-import {redirectToLogin} from "../../HOC/redirectToLogin";
 import {compose} from "redux";
 
 type MapStateProps = {
@@ -51,6 +50,6 @@ let routerProfileContainer = withRouter(ProfileContainer);
 export default compose<ComponentType>(
     connect(mapStateToProps, {getProfile, getStatus, updateStatus}),
     //redirectToLogin
-    )(routerProfileContainer)
+)(routerProfileContainer)
 
 

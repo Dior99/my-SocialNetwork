@@ -1,4 +1,4 @@
-import {addMessage, MessageType, updateMessageText} from "../../../Redux/message-reducer";
+import {addMessage, MessageType} from "../../../Redux/message-reducer";
 import {MessageItems} from "./MessageItems";
 import {connect} from "react-redux";
 import {compose} from "redux";
@@ -8,12 +8,10 @@ import {ComponentType} from "react";
 
 type MapStateToPropsType = {
     messages: Array<MessageType>
-    newMessageText: string
 }
 
 type MapDispatchToPropsType = {
-    addMessage: () => void
-    updateMessageText: (text: string) => void
+    addMessage: (newMessage: string) => void
 }
 
 export type MessagePropsType = MapStateToPropsType & MapDispatchToPropsType
@@ -21,12 +19,11 @@ export type MessagePropsType = MapStateToPropsType & MapDispatchToPropsType
 const mapStateToProps = (state: AppStateType): MapStateToPropsType => {
     return {
         messages: state.messagePage.message,
-        newMessageText: state.messagePage.newMessageText
     }
 }
 
 export default compose<ComponentType>(
-    connect(mapStateToProps, {addMessage, updateMessageText}),
+    connect(mapStateToProps, {addMessage}),
     //redirectToLogin
 )(MessageItems)
 
