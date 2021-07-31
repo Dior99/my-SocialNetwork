@@ -3,6 +3,8 @@ import s from './MyPost.module.css';
 import {Post} from "./Post/Post";
 import {Field, InjectedFormProps, reduxForm} from "redux-form";
 import {MyPostPropsType} from "./MyPostContainer";
+import {Textarea} from "../../Common/FormsControl/FormsControl";
+import {maxLength, requiredField} from "../../../utils/validators/validators";
 
 export function MyPost(props: MyPostPropsType) {
 
@@ -37,11 +39,13 @@ type AddPostFormDataType = {
     post: string
 }
 
+const maxLengthSymbols = maxLength(15)
+
 function AddPostForm (props: InjectedFormProps<AddPostFormDataType>) {
     return (
         <form onSubmit={props.handleSubmit}>
             <div>
-                <Field component="textarea" name="post" placeholder="New post" />
+                <Field component={Textarea} validate={[requiredField, maxLengthSymbols]} name="post" placeholder="New post" />
             </div>
             <button>Post</button>
         </form>

@@ -2,6 +2,8 @@ import React from 'react';
 import s from './MessageItems.module.css';
 import {MessagePropsType} from "./MessageItemsContainer";
 import {Field, InjectedFormProps, reduxForm} from "redux-form";
+import {maxLength, requiredField} from "../../../utils/validators/validators";
+import {Input} from "../../Common/FormsControl/FormsControl";
 
 export function MessageItems(props: MessagePropsType) {
 
@@ -35,11 +37,15 @@ type AddMessageFormDataType = {
     message: string
 }
 
+const maxLengthSymbols =  maxLength(10)
+
 function AddMessageForm (props: InjectedFormProps<AddMessageFormDataType>) {
     return (
         <form onSubmit={props.handleSubmit}>
             <div>
-                <Field component="input" name="message" plaseholder="New Message"/>
+                <Field component={Input}
+                       name="message"
+                       plaseholder="New Message" validate={[requiredField, maxLengthSymbols]}/>
             </div>
             <div>
                 <button>Add</button>
