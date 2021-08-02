@@ -17,9 +17,6 @@ type MapDispatchPropsType = {
 export type HeaderPropsType = MapStatePropsType & MapDispatchPropsType
 
 class HeaderContainer extends React.Component<HeaderPropsType> {
-    componentDidMount() {
-       this.props.setLoginUser()
-    }
 
     render() {
         return <Header {...this.props}/>
