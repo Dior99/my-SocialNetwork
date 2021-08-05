@@ -1,0 +1,33 @@
+.container {
+    margin-top: 20px;
+    display: flex;
+    justify-content: center;
+}
+
+.activeCurrentPage {
+    font-weight: bold;
+    background-color: #ffffff;
+}
+
+.block {
+    border: 1px solid black;
+    padding: 5px;
+    margin: 0 5px;
+    cursor: pointer;
+    color: #041226;
+}
+
+.but {
+    color: #041226;
+    border: 1px solid #98a0ac;
+    padding: 5px;
+    text-transform: uppercase;
+    box-shadow: 0 0 5px black;
+    transition: background-color 0.1s ease 0.1s, color 0.1s ease 0.1s;
+    cursor: pointer;
+}
+
+.but:hover {
+    background-color: #041226;
+    color: #fff;
+}

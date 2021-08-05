@@ -69,7 +69,7 @@ export type UserType = {
 export const initialState = {
     users: [] as Array<UserType>,
     totalUserCount: 12686,
-    pageSize: 100,
+    pageSize: 10,
     currentPage: 1,
     isFetching: false,
     followingInProgress: [] as Array<number>
