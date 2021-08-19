@@ -27,16 +27,26 @@ export const userAPI = {
 }
 
 export const profileAPI = {
-    getProfile: (userId: string) => {
+    getProfile: (userId: number) => {
         return instance.get(`profile/${userId}`)
     },
 
-    getStatus: (userId: string) => {
-        return instance.get(`/profile/status/${userId}`)
+    getStatus: (userId: number) => {
+        return instance.get(`profile/status/${userId}`)
     },
 
-    updateStatus: (newStatus: string) => {
-        return instance.put(`/profile/status`, {status: newStatus})
+    updateStatus: (status: string) => {
+        return instance.put(`profile/status`, {status})
+    },
+
+    savePhoto: (photo: File) => {
+        const formData = new FormData()
+        formData.append("image", photo)
+        return instance.put(`profile/photo`, formData, {
+            headers: {
+                'Content-Type': 'multipart/form-data'
+            }
+        })
     }
 }
 
@@ -45,11 +55,11 @@ export const authAPI = {
         return instance.get(`auth/me`).then(response => response.data)
     },
     login: (email: string, password: string, rememberMe: boolean) => {
-        return instance.post(`/auth/login`, {email, password, rememberMe})
+        return instance.post(`auth/login`, {email, password, rememberMe})
             .then(response => response.data)
     },
     logout: () => {
-        return instance.delete(`/auth/login`).then(response => response.data)
+        return instance.delete(`auth/login`).then(response => response.data)
     }
 }
 

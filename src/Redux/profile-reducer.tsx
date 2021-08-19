@@ -9,6 +9,7 @@ const LIKES_POST_COUNT = "LIKES-POST-COUNT"
 const ADD_POST = "ADD-POST"
 const SET_USER_PROFILE = "SET-USER-PROFILE"
 const SET_USER_STATUS = "SET-USER-STATUS"
+const SET_USER_PHOTO = "SET-USER-PHOTO"
 
 type AddPostActionType = {
     type: typeof ADD_POST
@@ -24,11 +25,15 @@ type LikesPostCountActionType = {
 }
 type setUserProfileActionType = {
     type: typeof SET_USER_PROFILE
-    profile: ProfileType | null
+    profile: ProfileType
 }
 type setUserStatusActionType = {
     type: typeof SET_USER_STATUS
     status: string
+}
+type setPhotoActionType = {
+    type: typeof SET_USER_PHOTO
+    photo: PhotosProfileType
 }
 
 export type ProfileActionType = AddPostActionType
@@ -36,6 +41,7 @@ export type ProfileActionType = AddPostActionType
     | LikesPostCountActionType
     | setUserProfileActionType
     | setUserStatusActionType
+    | setPhotoActionType
 
 export type PostType = {
     id: string
@@ -54,8 +60,8 @@ export type ContactsProfileType = {
     mainLink: null
 }
 export type PhotosProfileType = {
-    small: string
-    large: string
+    small: string | null
+    large: string | null
 }
 export type ProfileType = {
     aboutMe: string,
@@ -64,7 +70,7 @@ export type ProfileType = {
     lookingForAJobDescription: string
     fullName: string,
     userId: number,
-    photos: PhotosProfileType | null
+    photos: PhotosProfileType
 }
 
 const initialState = {
@@ -73,7 +79,7 @@ const initialState = {
         {id: v1(), title: 'Post 2', likes: 15, avatar: AvatarPost},
         {id: v1(), title: 'Post 3', likes: 25, avatar: AvatarPost},
     ] as Array<PostType>,
-    profile: {} as ProfileType | null,
+    profile: null as ProfileType | null,
     status: ""
 }
 
@@ -110,6 +116,9 @@ export const profileReducer = (state: InitialStateType = initialState, action: P
 
         case SET_USER_STATUS:
             return {...state, status: action.status}
+
+        case SET_USER_PHOTO:
+            return {...state, profile: {...state.profile, photos: action.photo} as ProfileType}
     }
     return state
 }
@@ -125,17 +134,18 @@ export const likesCountAC = (id: string): LikesPostCountActionType => ({
 export const addPostAC = (newPost: string): AddPostActionType => ({
     type: ADD_POST, newPost
 })
-export const setUserProfile = (profile: ProfileType | null): setUserProfileActionType => ({type: SET_USER_PROFILE, profile})
+export const setUserProfile = (profile: ProfileType): setUserProfileActionType => ({type: SET_USER_PROFILE, profile})
 export const setUserStatus = (status: string): setUserStatusActionType => ({type: SET_USER_STATUS, status})
+export const setPhoto = (photo: PhotosProfileType): setPhotoActionType => ({type: SET_USER_PHOTO, photo})
 
-export const getProfile = (userId: string) => (dispatch: Dispatch<ProfileActionType>) => {
+export const getProfile = (userId: number) => (dispatch: Dispatch<ProfileActionType>) => {
     profileAPI.getProfile(userId)
         .then(response => {
             dispatch(setUserProfile(response.data))
         })
 }
 
-export const getStatus = (userId: string) => (dispatch: Dispatch<ProfileActionType>) => {
+export const getStatus = (userId: number) => (dispatch: Dispatch<ProfileActionType>) => {
     profileAPI.getStatus(userId)
         .then(res => {
             dispatch(setUserStatus(res.data))
@@ -146,7 +156,16 @@ export const updateStatus = (status: string) => (dispatch: Dispatch<ProfileActio
     profileAPI.updateStatus(status)
         .then(res => {
             if(res.data.resultCode === 0) {
-                dispatch(setUserStatus(res.data))
+                dispatch(setUserStatus(status))
+            }
+        })
+}
+
+export const savePhoto = (photo: File) => (dispatch: Dispatch<ProfileActionType>) => {
+    profileAPI.savePhoto(photo)
+        .then(res => {
+            if(res.data.resultCode === 0) {
+                dispatch(setPhoto(res.data.data.photos))
             }
         })
 }

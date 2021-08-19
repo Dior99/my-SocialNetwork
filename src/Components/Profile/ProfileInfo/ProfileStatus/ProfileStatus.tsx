@@ -12,7 +12,7 @@ export const ProfileStatus = (props: ProfileStatusPropsType) => {
     const [status, setStatus] = useState<string>(props.status)
 
     useEffect(() => {
-        props.updateStatus(props.status)
+        setStatus(props.status)
     }, [props.status])
 
     const activeEditMode = () => {
@@ -28,14 +28,13 @@ export const ProfileStatus = (props: ProfileStatusPropsType) => {
         setStatus(e.currentTarget.value)
     }
 
-
     return (
         <div>
             {active && <input onBlur={inactiveEditMode}
                               onChange={changeValueStatus}
                               value={status}
                               autoFocus/>}
-            {!active && <span onDoubleClick={activeEditMode}>{status || "-----"}</span>}
+            {!active && <span onDoubleClick={activeEditMode}>{props.status || "-----"}</span>}
 
         </div>
     )

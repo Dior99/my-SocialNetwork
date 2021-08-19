@@ -31,7 +31,7 @@ export const setInitialized = (): SetInitialized =>
     ({type: AUTH_ACTION_TYPE.SET_INITIALIZED});
 
 export const initialize = (dispatch: ThunkDispatch<AppStateType, unknown, AppActionType>) => {
-    const promise = dispatch(setLoginUser)
+    const promise = dispatch(setLoginUser())
 
     Promise.all([promise])
         .then(() => {

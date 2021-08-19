@@ -20,4 +20,31 @@
     height: 200px;
 }
 
+.changeAvatar_container {
+    position: relative;
+}
+
+.input_file {
+    opacity: 0;
+    visibility: hidden;
+    position: absolute;
+}
+
+.changeAvatar {
+    width: 200px;
+    background-color: white;
+    height: 35px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 5px;
+    transition: .3s;
+}
+
+.changeAvatar:hover {
+    background-color: #041226;
+    color: white;
+    cursor: pointer;
+}
+
 
